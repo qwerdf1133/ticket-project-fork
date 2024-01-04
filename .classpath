@@ -11,5 +11,14 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
+	<classpathentry kind="lib" path="lib/mysql-connector-j-8.2.0.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+=======
+	<classpathentry kind="lib" path="C:/Users/admin/Downloads/mysql-connector-j-8.2.0.jar"/>
+>>>>>>> branch 'post' of https://github.com/nanaball/ticket.git
 	<classpathentry kind="output" path="bin"/>
 </classpath>
