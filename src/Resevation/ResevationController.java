@@ -1,5 +1,6 @@
 package Resevation;
 
+
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
@@ -172,7 +173,7 @@ public class ResevationController implements Initializable {
 				return;
 			}
 		});
-// 좌석 정보 노출	
+// 좌석 정보 노출
 		ObservableList<ResevationVO> list = FXCollections.observableArrayList();
 		ResevationVO vips = new ResevationVO("VIP 좌석", "50석", "100000원");
 		ResevationVO order = new ResevationVO("일반좌석", "50석", "30000원");

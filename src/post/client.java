@@ -4,12 +4,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.URL;
 import java.net.UnknownHostException;
-import java.util.ResourceBundle;
 
 import javafx.application.Application;
-import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
 public class client extends Application {

@@ -1,14 +1,11 @@
 package post;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
