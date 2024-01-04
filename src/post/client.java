@@ -13,35 +13,27 @@ import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
 public class client extends Application {
-	
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
 			Socket socket = new Socket("10.100.205.92", 5001);
-			
-			
+
 			OutputStream output = socket.getOutputStream();
-			
+
 			String realStr = "THIS IS WOOLBRO";
 			byte[] data = realStr.getBytes();
 			output.write(data);
-					
+
 			PrintWriter writer = new PrintWriter(output, true);
 			writer.print("This");
-			
+
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-				
+
 	}
-	
-	
+
 }
-
-
-
-
