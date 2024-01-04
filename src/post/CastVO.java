@@ -1,14 +1,14 @@
 package post;
 
 public class CastVO {
-	
+
 	private String 날짜;
 	private String 시간;
 	private String 캐스팅;
-	
-	 
-	public CastVO() {}
-	
+
+	public CastVO() {
+	}
+
 	public CastVO(String 날짜, String 시간, String 캐스팅) {
 		this.날짜 = 날짜;
 		this.시간 = 시간;
@@ -43,7 +43,5 @@ public class CastVO {
 	public String toString() {
 		return "CastVO [날짜=" + 날짜 + ", 시간=" + 시간 + ", 캐스팅=" + 캐스팅 + "]";
 	}
-
-	
 
 }
