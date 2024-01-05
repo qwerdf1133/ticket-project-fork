@@ -12,7 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -21,11 +20,11 @@ public class payDoneController implements Initializable {
 
 	@FXML private Label userID, price, date, musical, seat;
 	@FXML private Button btnExit, btnCheck;
-	@FXML private AnchorPane scenePane;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		// 결제 완료 창에서 예매 확인 버튼을 누르면 PayCheck 으로 넘어감
 		btnCheck.setOnAction((e)->{
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("payCheck.fxml"));
 			Parent root1;
