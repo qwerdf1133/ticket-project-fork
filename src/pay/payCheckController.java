@@ -28,20 +28,23 @@ public class payCheckController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		// 결제 화면에서 MySQL 연결
+		// MySQL 연결
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				System.out.println("driver 존재");
 				
 				Properties prop = new Properties();
+				
 				// 임의로 DB를 만들어서 주소를 정함
 				// 주소만 바꾸면 연동 될 것 같아요
 				prop.load(new FileReader("src/pay/DB/mysql.properties")); 
+				
 				System.out.println(prop);
 				
 				conn = DriverManager.getConnection(prop.getProperty("url"),prop);
 				System.out.println(conn);
 				
+				// 임의로 만든 DB에서 선택한 데이터만 찾는 수식
 				String sql = "" +
 				 "SELECT userID, price, seat, musical, date from dummy where userID=?";
 				
@@ -50,15 +53,20 @@ public class payCheckController implements Initializable {
 				// 나중에 로그인 정보와 맞추면 될 듯
 				// 어덯게 하지..?
 				pstmt.setString(1, "h");	
-					
 				ResultSet rs = pstmt.executeQuery();
 				if(rs.next()) {
 					String userID = rs.getString("userID");
+					// 가격 정보
+					String price = rs.getString("price");
+					// 좌석 정보
 					String seat = rs.getString("seat");
+					// 뮤지컬 정보
 					String musical = rs.getString("musical");
+					// 날짜 정보
 					String date = rs.getString("date");
-					System.out.println(userID+":"+seat+":"+musical+":"+date);
 					
+					// 확인용 
+					System.out.println(userID+":"+price+":"+seat+":"+musical+":"+date);
 					
 				}else {
 					System.out.println("존재X");
@@ -83,6 +91,7 @@ public class payCheckController implements Initializable {
 	
 				}
 			
+			// 확인 버튼으로 모든 창 닫기
 			btnEnd.setOnAction((e)->{
 //				System.exit(0);
 				Platform.exit();
