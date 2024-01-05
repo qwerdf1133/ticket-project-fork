@@ -1,4 +1,4 @@
-package Resevation;
+package reservation;
 
 
 import java.io.IOException;
@@ -34,15 +34,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import main.Main;
+import main.Receivable;
 
-public class ResevationController implements Initializable {
+public class ReservationController implements Initializable, Receivable {
 
 	@FXML
 	private Button btnSc;
 	@FXML
 	private VBox btnBox;
 	@FXML
-	private TableView<ResevationVO> tableView;
+	private TableView<ReservationVO> tableView;
 	@FXML
 	private TextField selectS;
 	@FXML
@@ -50,10 +52,10 @@ public class ResevationController implements Initializable {
 	@FXML
 	private ComboBox<String> selectTime;
 
-	public static ObservableList<ResevationVO> list;
+	public static ObservableList<ReservationVO> list;
 	ObservableList<String> ttime; // TableView
 
-	public static ResevationVO red;
+	public static ReservationVO red;
 
 	public String reservSeat; // 선택된 좌석
 
@@ -61,19 +63,17 @@ public class ResevationController implements Initializable {
 	public Button selectedButton;
 	public String btnStyle;
 
-	// 서버와 연결할 소켓
-	Socket socket;
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		Main.thread.reservationController = this;
 
-// 예매하기 버튼 클릭시 창 띄우기		파일명 넣기 null 자리에 "pay.fxml"+fxml 파일에서 컨트롤러 확인
+		// 예매하기 버튼 클릭시 창 띄우기		파일명 넣기 null 자리에 "pay.fxml"+fxml 파일에서 컨트롤러 확인
 		btnSc.setOnAction((e) -> {
 			if (selectS.equals(null))
 				return;
 			try {
 				Stage stage = new Stage();
-				Parent root = FXMLLoader.load(getClass().getResource("pay.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/pay/PayMain.fxml"));
 				stage.setScene(new Scene(root));
 				stage.setTitle("결제하기");
 				stage.show();
@@ -174,32 +174,30 @@ public class ResevationController implements Initializable {
 			}
 		});
 // 좌석 정보 노출
-		ObservableList<ResevationVO> list = FXCollections.observableArrayList();
-		ResevationVO vips = new ResevationVO("VIP 좌석", "50석", "100000원");
-		ResevationVO order = new ResevationVO("일반좌석", "50석", "30000원");
+		ObservableList<ReservationVO> list = FXCollections.observableArrayList();
+		ReservationVO vips = new ReservationVO("VIP 좌석", "50석", "100000원");
+		ReservationVO order = new ReservationVO("일반좌석", "50석", "30000원");
 		list.add(vips);
 		list.add(order);
 
-		ObservableList<TableColumn<ResevationVO, ?>> columnList = tableView.getColumns();
-		TableColumn<ResevationVO, ?> gradeColumn = columnList.get(0);
-		TableColumn<ResevationVO, ?> priceColumn = columnList.get(1);
-		TableColumn<ResevationVO, ?> charsColumn = columnList.get(2);
+		ObservableList<TableColumn<ReservationVO, ?>> columnList = tableView.getColumns();
+		TableColumn<ReservationVO, ?> gradeColumn = columnList.get(0);
+		TableColumn<ReservationVO, ?> priceColumn = columnList.get(1);
+		TableColumn<ReservationVO, ?> charsColumn = columnList.get(2);
 		gradeColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		charsColumn.setCellValueFactory(new PropertyValueFactory<>("chars"));
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 		tableView.setItems(list);
 
-// server 와 연결
-		try {
-			Socket socket = new Socket("10.100.205.92", 5001);
-			String sql = "select * from Musical";
-
-		} catch (UnknownHostException e1) {
-			Platform.exit();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-
 	} // end initialize
+
+	
+	/**
+	 * 서버 수신 데이터
+	 */
+	@Override
+	public void receiveData(String message) {
+		// TODO receive server Data Reservation answer
+	}
 
 }

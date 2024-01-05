@@ -1,7 +1,10 @@
 package login;
 
-
-public class Member_DO {
+/**
+ * 회원 정보를 저장할 class
+ * Value Object 
+ */
+public class MemberVO {
 
 	private String mName;
 	
@@ -12,16 +15,16 @@ public class Member_DO {
 	private String pNum;
 	
 	
-	public Member_DO() {}
+	public MemberVO() {}
 	
 	
 	// 회원 로그인 및 정보 검색용 생성자
-	public Member_DO(String mId, String mPw) {
+	public MemberVO(String mId, String mPw) {
 		this.mId = mId;
 		this.mPw = mPw;
 	}
 	// 회원가입용 및 DB List
-	public Member_DO( String mId, String mPw ,String mName, String pNum) {
+	public MemberVO( String mId, String mPw ,String mName, String pNum) {
 		this.mName = mName;
 		this.mId = mId;
 		this.mPw = mPw;
@@ -71,8 +74,7 @@ public class Member_DO {
 
 	@Override
 	public String toString() {
-		return "Member_DO [mName=" + mName + ", mId=" + mId + ", mPw=" + mPw + ",  pNum=" + pNum
-				+ "]";
+		return mName + "," + mId + "," + mPw + "," + pNum;
 	}
 	
 

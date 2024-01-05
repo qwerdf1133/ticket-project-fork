@@ -1,6 +1,6 @@
-package Resevation;
+package reservation;
 
-public class ResevationVO {
+public class ReservationVO {
 
 	private String name;
 	private String chars;
@@ -14,7 +14,7 @@ public class ResevationVO {
 		this.price = price;
 	}
 
-	public ResevationVO(String name, String chars, String price) {
+	public ReservationVO(String name, String chars, String price) {
 		this.name = name;
 		this.chars = chars;
 		this.price = price;

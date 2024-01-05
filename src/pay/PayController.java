@@ -25,10 +25,10 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import main.Main;
+import main.Receivable;
 
-import java.sql.*;
-
-public class payController implements Initializable{
+public class PayController implements Initializable, Receivable{
 	// musicalName
 	
 	@FXML private Label musicalName;
@@ -41,14 +41,16 @@ public class payController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		Main.thread.payController = this;
+		
+		
 		// 결제하기 버튼을 눌렀을 때 발생하는 이벤트
 		pay.setOnAction((e)->{
 			
 			// 필수 약관 동의에 체크를 하고 결제하기를 눌렀을 때만 다음 화면으로 넘어감.
 			if(terms1.isSelected() && terms2.isSelected() && terms3.isSelected()) {
 			
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("payDone.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pay/PayDone.fxml"));
 			Parent root1;
 			Stage stage;
 			
@@ -163,9 +165,15 @@ public class payController implements Initializable{
 			stage.show();
 			
 		}); // 하이퍼링크 끝
-		
-		
-		
 	} // 이니셜라이즈 끝
+
+	/**
+	 * server receive
+	 */
+	@Override
+	public void receiveData(String message) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

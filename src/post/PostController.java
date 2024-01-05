@@ -2,13 +2,10 @@ package post;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.net.Socket;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,8 +26,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import main.Main;
+import main.Receivable;
 
-public class MainController implements Initializable {
+public class PostController implements Initializable, Receivable {
 
 	// 달력을 표시할 그리드
 	@FXML
@@ -197,17 +196,7 @@ public class MainController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
-		// 서버 소켓 연결
-		try {
-			Socket socket = new Socket("10.100.205.92", 5001);
-			// TODO 추가 아이피 수정
-		} catch (UnknownHostException e) {
-			Platform.exit();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		main.Main.thread.postController = this;
 		// 오늘 날짜
 		date = LocalDate.now();
 		now = LocalDate.now();
@@ -252,17 +241,36 @@ public class MainController implements Initializable {
 
 		// 예매하기 버튼 클릭시 로그인 화면 이동
 		btnRe.setOnAction(e -> {
-
 			try {
 				Stage stage = new Stage();
-				Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-				stage.setScene(new Scene(root));
-				stage.setTitle("로그인 화면");
+				if(Main.loginMember == null){
+					Parent root = FXMLLoader.load(getClass().getResource("/login/Login.fxml"));
+					stage.setScene(new Scene(root));
+					stage.setTitle("로그인 화면");
+				}else {
+					Parent root;
+					root = FXMLLoader.load(getClass().getResource("/reservation/Reservation.fxml"));
+					stage.setScene(new Scene(root));
+					stage.setTitle("예약하기");
+				}
 				stage.show();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 		});
 	}
+	
+	/**
+	 * server 에서 mainThread도 전달된 data를 컨트롤러에 전달
+	 */
+	@Override
+	public void receiveData(String message) {
+		// TODO receive된 데이터로 결과 처리
+	}
 
 }
+
+
+
+
+
