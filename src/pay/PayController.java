@@ -36,7 +36,7 @@ public class PayController implements Initializable, Receivable{
 	@FXML private RadioButton card, kakao, samsung, apple, naver, toss;
 	@FXML private CheckBox terms1, terms2, terms3, terms4;
 	@FXML private Button pay;
-	@FXML private TextField price, seat;
+	@FXML private TextField price, seat, musical, date;
 	@FXML private Hyperlink trade, info, les, SMS;
 	
 	@Override
