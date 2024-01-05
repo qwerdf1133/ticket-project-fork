@@ -24,20 +24,15 @@
       <Separator layoutY="40.0" prefWidth="300.0" />
       <Separator layoutY="45.0" prefWidth="300.0" />
       
-      <Label layoutX="122.0" layoutY="55.0" text="결제금액" />
+      <Label layoutX="53.0" layoutY="58.0" text="결제금액" />
       
-      <Label layoutX="190.0" layoutY="79.0" text="원">
+      <Label layoutX="140.0" layoutY="82.0" text="원">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
       
       <Label layoutX="39.0" layoutY="120.0" text="예매한 작품" />
-      <Label fx:id="musicalName" layoutX="22.0" layoutY="145.0" text="레미제라블">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
       
       <Separator layoutX="2.0" layoutY="181.0" prefWidth="300.0" />
       <Separator layoutX="2.0" layoutY="186.0" prefWidth="300.0" />
@@ -65,17 +60,17 @@
       <CheckBox fx:id="terms4" layoutX="12.0" layoutY="410.0" mnemonicParsing="false" text="마케팅 메일, SMS 수신 동의 (선택)" />
       
        <Button fx:id="pay" layoutX="30.0" layoutY="445.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="240.0" text="결제하기" />
-      <Label layoutX="183.0" layoutY="120.0" text="예매한 좌석" />
+      <Label layoutX="200.0" layoutY="120.0" text="예매한 좌석" />
       <Hyperlink fx:id="trade" layoutX="232.0" layoutY="335.0" text="상세보기" userData=".../agree/trade" />
       <Hyperlink fx:id="info" layoutX="232.0" layoutY="360.0" text="상세보기" userData="" />
       <Hyperlink fx:id="les" layoutX="232.0" layoutY="385.0" text="상세보기" userData="" />
       <Hyperlink fx:id="SMS" layoutX="232.0" layoutY="410.0" text="상세보기" userData="" />
-      <TextField fx:id="price" alignment="CENTER" layoutX="93.0" layoutY="79.0" prefHeight="29.0" prefWidth="87.0" promptText="가격" text="80,000">
+      <TextField fx:id="price" alignment="CENTER" layoutX="13.0" layoutY="82.0" prefHeight="29.0" prefWidth="120.0" promptText="가격">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="seat" alignment="CENTER" layoutX="184.0" layoutY="143.0" prefHeight="29.0" prefWidth="64.0" promptText="좌석" text="A-6" AnchorPane.rightAnchor="54.0">
+      <TextField fx:id="seat" alignment="CENTER" layoutX="184.0" layoutY="143.0" prefHeight="29.0" prefWidth="64.0" promptText="좌석" AnchorPane.rightAnchor="54.0">
          <font>
             <Font size="16.0" />
          </font>
@@ -88,6 +83,17 @@
             <Font size="24.0" />
          </font>
       </Label>
+      <TextField fx:id="musical" alignment="CENTER" layoutX="14.0" layoutY="143.0" prefHeight="29.0" prefWidth="120.0" promptText="뮤지컬 이름">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="date" alignment="CENTER" layoutX="184.0" layoutY="82.0" prefHeight="29.0" prefWidth="100.0" promptText="날짜">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <Label layoutX="208.0" layoutY="58.0" text="예매 날짜" />
        
    </children>
 </AnchorPane>

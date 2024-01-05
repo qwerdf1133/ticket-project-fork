@@ -1,23 +1,50 @@
 package pay;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class payDoneController implements Initializable {
 
-	@FXML private Label lbldata;
-	@FXML private Button btnExit;
+	@FXML private Label userID, price, date, musical, seat;
+	@FXML private Button btnExit, btnCheck;
 	@FXML private AnchorPane scenePane;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		btnCheck.setOnAction((e)->{
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("payCheck.fxml"));
+			Parent root1;
+			Stage stage;
+			
+			try {
+				root1 = (Parent) fxmlLoader.load();
+				stage = new Stage();
+				stage.initModality(Modality.APPLICATION_MODAL); // 팝업처럼 화면이 뜸
+				stage.initStyle(StageStyle.UNDECORATED);		
+				stage.setTitle("레미제라블 예매 확인");
+				stage.setScene(new Scene(root1));
+				stage.show();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				return;
+			};
+		});
+		
 		
 		// 결제 완료 창의 확인 버튼을 누르면 모든 창이 꺼짐
 		btnExit.setOnAction((e)->{
