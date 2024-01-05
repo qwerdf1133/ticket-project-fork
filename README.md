@@ -9,3 +9,7 @@ Git repositories
 add entry 
 key : remote.project.fetch
 value : +refs/heads/*:refs/remotes/project/*
+
+
+
+## 20240105_work start
