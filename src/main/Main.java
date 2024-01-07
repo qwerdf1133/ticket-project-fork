@@ -41,7 +41,7 @@ public class Main extends Application {
 		Platform.runLater(()->{
 			try {
 				
-				socket = new Socket("10.100.205.195", 5001);
+				socket = new Socket("localhost", 5001);
 				System.out.println(socket);
 				alert.close();
 				
