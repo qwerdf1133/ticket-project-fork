@@ -1,7 +1,6 @@
 package post;
 
 public class CastVO {
-
 	private String 날짜;
 	private String 시간;
 	private String 캐스팅;
