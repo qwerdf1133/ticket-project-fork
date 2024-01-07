@@ -2,12 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane 
-fx:controller="pay.PayDoneController"
-prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="300.0" prefWidth="300.0" 
+xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+fx:controller="pay.PayDoneController">
    <children>
       <Label layoutX="107.0" layoutY="14.0" text="결제 완료">
          <font>
@@ -18,8 +19,11 @@ prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:f
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="79.0" layoutY="139.0" text="기타 궁금하신 문의사항은 " textAlignment="CENTER" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="55.0" layoutY="153.0" text="1:1 문의 또는 전화문의로 연락주시면" textAlignment="CENTER" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="81.0" layoutY="167.0" text="성실히 답변드리겠습니다." textAlignment="CENTER" />
-      <Button fx:id="btnExit" layoutX="130.0" layoutY="264.0" mnemonicParsing="false" text="확인" />
+      <Button fx:id="btnExit" layoutX="43.0" layoutY="256.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="창 닫기" />
       <Label layoutX="93.0" layoutY="206.0" text="즐거운 관람 되십시오." />
       <Label layoutX="120.0" layoutY="220.0" text="감사합니다." />
+      <Separator layoutY="47.0" prefWidth="300.0" />
+      <Button fx:id="btnCheck" layoutX="161.0" layoutY="256.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="예매 확인" />
+>>>>>>> branch 'main' of https://github.com/nanaball/ticket.git
    </children>
 </AnchorPane>

@@ -10,7 +10,6 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-
 /**
  * Server에서 전달 받은 데이터를 각 무대 별 화면 제어 Controller로 전달하는 router(발송 담당) Class
  * run() - Server Data Receive
@@ -20,7 +19,10 @@ import javafx.scene.control.Alert.AlertType;
  */
 public class MainRouterThread extends Thread {
 
-	public Receivable memberController, loginController, postController, reservationController, payController, payDoneController;
+	public Receivable memberController, loginController, 
+					  postController, 
+					  reservationController, 
+					  payController, payDoneController, payCheckBontroller;
 
 	// Server에서 발신한 내용을 Receive
 	@Override

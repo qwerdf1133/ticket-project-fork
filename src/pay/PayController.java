@@ -1,8 +1,18 @@
 package pay;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -15,7 +25,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -28,10 +37,14 @@ import javafx.stage.StageStyle;
 import main.Main;
 import main.Receivable;
 
-public class PayController implements Initializable, Receivable{
-	// musicalName
+public class PayController implements Initializable, Receivable {
 	
-	@FXML private Label musicalName;
+	Connection conn = null;
+	Statement stmt = null;
+	
+	// 서버 소켓
+	Socket server;
+	
 	@FXML private ToggleGroup group;
 	@FXML private RadioButton card, kakao, samsung, apple, naver, toss;
 	@FXML private CheckBox terms1, terms2, terms3, terms4;
@@ -43,7 +56,75 @@ public class PayController implements Initializable, Receivable{
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.thread.payController = this;
 		
-		
+		// 결제 화면에서 MySQL 연결
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			System.out.println("driver 존재");
+			
+			Properties prop = new Properties();
+			
+			// 임의로 DB를 만들어서 주소를 정함
+			// 주소만 바꾸면 연동 될 것 같아요
+			prop.load(new FileReader("src/pay/DB/mysql.properties")); 
+			
+			System.out.println(prop);
+			
+			Connection conn = DriverManager.getConnection(
+					"jdbc:mysql://pro:3306/projectdb/user=root&password=1234"
+				);
+			
+			conn = DriverManager.getConnection(prop.getProperty("url"),prop);
+			System.out.println(conn);
+			
+			// 임의로 만든 DB에서 선택한 데이터만 찾는 수식
+			String sql = "" +
+			 "SELECT userID, price, seat, musical, date from loginprojecttbl where userID=?";
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			// 아이디가 h 인 사람의 가격, 좌석, 예매한 작품, 날짜 정보 구현
+			// 나중에 로그인 정보와 맞추면 될 듯
+			// 어덯게 하지..?
+			pstmt.setString(1, "h");	
+				
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				// 가격 정보
+				String price = rs.getString("price");
+				// 좌석 정보
+				String seat = rs.getString("seat");
+				// 뮤지컬 정보
+				String musical = rs.getString("musical");
+				// 날짜 정보
+				String date = rs.getString("date");
+				
+				// 확인용 
+				System.out.println(price+":"+seat+":"+musical+":"+date);
+				
+				
+			}else {
+				System.out.println("존재X");
+			}
+			
+			// 텍스트 필드에게 mysql 정보를 불러오기
+			price.setText(rs.getString("price"));
+			seat.setText(rs.getString("seat"));
+			musical.setText(rs.getString("musical"));
+			date.setText(rs.getString("date"));
+				
+			} catch (FileNotFoundException e) {
+				System.out.println("file not found");
+				
+			} catch (IOException e) {
+				System.out.println("ioe err");
+				
+			} catch (SQLException e1) {
+				System.out.println("sql error");
+				
+			} catch (ClassNotFoundException e1) {
+				System.out.println("class not found");
+					
+			}
+				
 		// 결제하기 버튼을 눌렀을 때 발생하는 이벤트
 		pay.setOnAction((e)->{
 			
@@ -165,11 +246,11 @@ public class PayController implements Initializable, Receivable{
 			stage.show();
 			
 		}); // 하이퍼링크 끝
+		
+		
+		
 	} // 이니셜라이즈 끝
 
-	/**
-	 * server receive
-	 */
 	@Override
 	public void receiveData(String message) {
 		// TODO Auto-generated method stub
