@@ -40,7 +40,7 @@ public class Main extends Application {
 		// 서버 소켓 연결
 		Platform.runLater(()->{
 			try {
-				
+			
 				socket = new Socket("localhost", 5001);
 				System.out.println(socket);
 				alert.close();
@@ -55,7 +55,6 @@ public class Main extends Application {
 				primaryStage.setScene(scene);
 				primaryStage.show();
 			}  catch (Exception e ) {
-				e.printStackTrace();
 				alert.close();
 				showAlert("서버와 연결이 되지 않습니다. 다시 시도해 주세요.");
 				primaryStage.close();

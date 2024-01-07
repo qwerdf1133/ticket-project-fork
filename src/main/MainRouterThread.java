@@ -9,8 +9,6 @@ import java.io.PrintWriter;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import pay.PayCheckController;
-
 
 /**
  * Server에서 전달 받은 데이터를 각 무대 별 화면 제어 Controller로 전달하는 router(발송 담당) Class
