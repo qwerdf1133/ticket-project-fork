@@ -6,7 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pay.payCheckController">
+<AnchorPane prefHeight="300.0" prefWidth="300.0" 
+xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+fx:controller="pay.PayCheckController">
    <children>
       <Label layoutX="124.0" layoutY="14.0" text="예매 확인" />
       <Label fx:id="userID" layoutX="120.0" layoutY="58.0" text="홍길동">

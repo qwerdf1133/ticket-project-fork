@@ -17,8 +17,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import main.Main;
+import main.Receivable;
 
-public class payCheckController implements Initializable {
+public class PayCheckController implements Initializable, Receivable {
 
 	@FXML Label userID, date, musical, seat;
 	@FXML Button btnEnd;
@@ -27,7 +29,9 @@ public class payCheckController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		Main.thread.payCheckBontroller = this;
+		
+		
 		// MySQL 연결
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
@@ -97,6 +101,11 @@ public class payCheckController implements Initializable {
 				Platform.exit();
 			});
 	
+	}
+
+	@Override
+	public void receiveData(String message) {
+		
 	}
 	
 }

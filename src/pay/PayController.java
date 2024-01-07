@@ -34,8 +34,10 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import main.Main;
+import main.Receivable;
 
-public class payController implements Initializable{
+public class PayController implements Initializable, Receivable {
 	
 	Connection conn = null;
 	Statement stmt = null;
@@ -52,7 +54,8 @@ public class payController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		Main.thread.payController = this;
+		
 		// 결제 화면에서 MySQL 연결
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -128,7 +131,7 @@ public class payController implements Initializable{
 			// 필수 약관 동의에 체크를 하고 결제하기를 눌렀을 때만 다음 화면으로 넘어감.
 			if(terms1.isSelected() && terms2.isSelected() && terms3.isSelected()) {
 			
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("payDone.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pay/PayDone.fxml"));
 			Parent root1;
 			Stage stage;
 			
@@ -247,5 +250,11 @@ public class payController implements Initializable{
 		
 		
 	} // 이니셜라이즈 끝
+
+	@Override
+	public void receiveData(String message) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

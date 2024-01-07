@@ -10,14 +10,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
-public class payMain extends Application {
+public class PayMain extends Application {
 	
 	Stage stage;
 	
 	@Override
 	public void start(Stage stage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("payMain.fxml"));
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/pay/PayMain.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setTitle("레미제라블 결제화면");

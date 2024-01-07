@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,12 +12,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import main.Main;
+import main.Receivable;
 
-public class MemberController implements Initializable {
+public class MemberController implements Initializable, Receivable {
 
 	@FXML
 	private TextField txtId, txtName, txtPw, txtRe, txtPhone;
@@ -25,12 +28,17 @@ public class MemberController implements Initializable {
 	@FXML
 	private CheckBox check;
 
-	MyDB db;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		db = new MyDB();
+		
+		Main.thread.memberController = this;
+		
+		
+		
+		
 		System.out.println("호출시 자동 실행");
+		
 		btnJoin.setOnAction(e -> join());
 
         buttonGo.setOnAction(e->{
@@ -38,9 +46,8 @@ public class MemberController implements Initializable {
 			try {
 				// 회원 페이지 이동
 				Stage stage = new Stage();
-				Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/login/Login.fxml"));
 				Scene scene = new Scene(root);
-				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				stage.setScene(scene);
 				stage.setTitle("Join page");
 				stage.show();
@@ -94,46 +101,40 @@ public class MemberController implements Initializable {
 			return;
 		}
 
-		// 아이디가 존재하거나 비밀번호가 일치하지 않음
-		for (Member_DO member : db.memberList) {
-			if (member.getmId().equals(id)) {
-				System.out.println("이미 사용중인 아이디입니다.");
-				alert("이미 사용중인 아이디입니다.");
-				return;
-			}
-		}
-
 		if (!rPw.equals(pw) ) {
 			System.out.println("비밀번호가 일치하지 않습니다.");
 			alert("비밀번호가 일치하지 않습니다.");
 			return;
 		}
 
-		Member_DO m = new Member_DO(id, name, pw, phone);
-		db.memberList.add(m);
-		
-
-		//db.memberList.put(id, name, pw, phone);
-		System.out.println(m);
-		System.out.println("회원가입 완료");
-		
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setHeaderText(null);
-		alert.setContentText("회원가입 완료");
-		alert.showAndWait();
-		
-	
-		// 화면 전환 -> 로그인
-		
-		
+		MemberVO m = new MemberVO(id, name, pw, phone);
+		Main.thread.sendData("0|1|"+m);
 	}
 	
 	
 	public void alert(String text){
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setHeaderText(null);
-		alert.setContentText(text);
-		alert.showAndWait();
+		Platform.runLater(()->{
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText(text);
+			alert.showAndWait();
+		});
+	}
+
+
+	/**
+	 * 회원 관련 요청 처리에 대한 결과를 server 에서 receive
+	 */
+	@Override
+	public void receiveData(String message) {
+		System.out.println("MemberController : " + message);
+		//0|1|true, 0|1|false
+		//db.memberList.put(id, name, pw, phone);
+		System.out.println("회원가입 완료");
+		
+		alert("회원가입 완료");
+		// 회원 가입 완료 시 
+		// 화면 전환 -> 로그인
 	}
 
 }

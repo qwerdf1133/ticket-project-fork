@@ -15,8 +15,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.Main;
+import main.Receivable;
 
-public class LoginController implements Initializable {
+public class LoginController implements Initializable, Receivable {
 
 	@FXML
 	private TextField txtId, txtPw;
@@ -25,6 +27,9 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		Main.thread.loginController = this;
+		
+		
 		Platform.runLater(() -> {
 			btnLogin.requestFocus();
 		});
@@ -36,9 +41,8 @@ public class LoginController implements Initializable {
 			try {
 				// 회원 페이지 이동
 				Stage stage = new Stage();
-				Parent root = FXMLLoader.load(getClass().getResource("Member.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/login/Member.fxml"));
 				Scene scene = new Scene(root);
-				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				stage.setScene(scene);
 				stage.setTitle("Login page");
 				stage.show();
@@ -50,13 +54,10 @@ public class LoginController implements Initializable {
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			
 		});
-
 	}
 
 	public void login() {
-		MyDB db = new MyDB();
 		if (txtId.getText().isEmpty() || txtPw.getText().isEmpty()) {
 			System.out.println("아이디 혹은 비밀번호를 입력하지 않았습니다!");
 			txtId.clear();
@@ -64,39 +65,50 @@ public class LoginController implements Initializable {
 			txtId.requestFocus();
 			return;
 		}
+		
+		// 로그인에 필요한 정보로 서버에 로그인 요청
+		Main.thread.sendData("0|0|"+txtId.getText().trim()+","+txtPw.getText().trim());
+		
+		
+		
+	}
+	
+	
+	public void alert(String text){
+		Platform.runLater(()->{
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText(null);
+			alert.setContentText(text);
+			alert.showAndWait();
+		});
+	}
 
-		for (Member_DO m : db.memberList) {
-			if (m.getmId().equals(txtId.getText()) && m.getmPw().equals(txtPw.getText())) {
-				System.out.println("로그인 성공");
-				alert("로그인 성공");
-				// page 이동
+	/**
+	 * server에서 전달된 로그인 요청에 대한 처리
+	 */
+	@Override
+	public void receiveData(String message) {
+		System.out.println("LoginController : " + message);
+		// receive login data
+		// page 이동
+			Platform.runLater(()->{
 				try {
-					Stage stage = new Stage();
-					Parent root;
-					root = FXMLLoader.load(getClass().getResource("Resevation.fxml"));
-					stage.setScene(new Scene(root));
-					stage.setTitle("예약하기");
-					stage.show();
+				Stage stage = new Stage();
+				Parent root;
+				root = FXMLLoader.load(getClass().getResource("/reservation/Reservation.fxml"));
+				stage.setScene(new Scene(root));
+				stage.setTitle("예약하기");
+				stage.show();
+				return;
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
-				return;
-			}
-		}
+			});
 		alert("로그인 실패");
 		// 로그인 실패
 		txtId.clear();
 		txtPw.clear();
 		txtId.requestFocus();
-	}
-	
-	
-	public void alert(String text){
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setHeaderText(null);
-		alert.setContentText(text);
-		alert.showAndWait();
 	}
 }
 
