@@ -253,7 +253,6 @@ public class PayController implements Initializable, Receivable {
 
 	@Override
 	public void receiveData(String message) {
-		// TODO Auto-generated method stub
 		
 	}
 	
