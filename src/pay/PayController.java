@@ -1,8 +1,8 @@
 package pay;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
 import java.sql.Connection;
@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -44,12 +43,23 @@ public class PayController implements Initializable, Receivable {
 	
 	// 서버 소켓
 	Socket server;
+	InetAddress ip;
+	int port;
+	BufferedReader br;
 	
 	@FXML private ToggleGroup group;
-	@FXML private RadioButton card, kakao, samsung, apple, naver, toss;
+	
+	@FXML private RadioButton card, kakao, samsung,	apple, naver, toss;		
+	
 	@FXML private CheckBox terms1, terms2, terms3, terms4;
-	@FXML private Button pay;
-	@FXML private TextField price, seat, musical, date;
+	
+	@FXML private Button pay;				
+	
+	@FXML private TextField price,			// 가격
+							seat,			// 좌석				
+							musical,		// 뮤지컬 이름
+							date;			// 날짜
+	
 	@FXML private Hyperlink trade, info, les, SMS;
 	
 	@Override
@@ -59,22 +69,20 @@ public class PayController implements Initializable, Receivable {
 		// 결제 화면에서 MySQL 연결
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			System.out.println("driver 존재");
 			
-			Properties prop = new Properties();
+//			Properties prop = new Properties();
 			
 			// 임의로 DB를 만들어서 주소를 정함
-			// 주소만 바꾸면 연동 될 것 같아요
-			prop.load(new FileReader("src/pay/DB/mysql.properties")); 
-			
-			System.out.println(prop);
+//			prop.load(new FileReader("src/pay/DB/mysql.properties")); 
+//			
+//			System.out.println(prop);
 			
 			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://pro:3306/projectdb/user=root&password=1234"
+					"jdbc:mysql://localhost:3306","root","1234"
 				);
 			
-			conn = DriverManager.getConnection(prop.getProperty("url"),prop);
-			System.out.println(conn);
+//			conn = DriverManager.getConnection(prop.getProperty("url"),prop);
+//			System.out.println(conn);
 			
 			// 임의로 만든 DB에서 선택한 데이터만 찾는 수식
 			String sql = "" +
@@ -111,11 +119,11 @@ public class PayController implements Initializable, Receivable {
 			musical.setText(rs.getString("musical"));
 			date.setText(rs.getString("date"));
 				
-			} catch (FileNotFoundException e) {
-				System.out.println("file not found");
+//			} catch (FileNotFoundException e) {
+//				System.out.println("file not found");
 				
-			} catch (IOException e) {
-				System.out.println("ioe err");
+//			} catch (IOException e) {
+//				System.out.println("ioe err");
 				
 			} catch (SQLException e1) {
 				System.out.println("sql error");
@@ -251,10 +259,34 @@ public class PayController implements Initializable, Receivable {
 		
 	} // 이니셜라이즈 끝
 
+	
+	// 서버에서 데이터 받아오기
 	@Override
 	public void receiveData(String message) {
-		// TODO Auto-generated method stub
-		
+		Thread t = new Thread(()->{
+			while(true) {
+				try {
+					String receiveData = br.readLine();
+					if(receiveData == null) {
+						break;
+					}
+					// 로그인 10
+					// 회원가입 11?
+					String[] datas = receiveData.split("\\|");
+					String code = datas[10];
+					
+					// 로그인 일 경우
+					if(code.equals("10")) {
+						String[] login; // 어떻게 할지를 모르겠어요
+					// 회원 가입일 경우
+					}else if(code.equals("11")) {
+						String[] member;
+					}
+					
+				}catch (IOException e) {
+					break;
+				}
+			}
+		});
 	}
-	
 }
