@@ -251,7 +251,7 @@ public class PostController implements Initializable, Receivable {
 			try {
 				Stage stage = new Stage();
 				if(Main.loginMember == null){
-					Parent root = FXMLLoader.load(getClass().getResource("/login/Login.fxml"));
+					Parent root = FXMLLoader.load(getClass().getResource("/member/Login.fxml"));
 					stage.setScene(new Scene(root));
 					stage.setTitle("로그인 화면");
 				} else {
