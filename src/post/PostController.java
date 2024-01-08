@@ -18,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -49,8 +48,7 @@ public class PostController implements Initializable, Receivable {
 	@FXML
 	private TableView<CastVO> tableView;
 
-	@FXML
-	private ListView<String> listView;
+
 
 	public static ObservableList<CastVO> list;
 
@@ -139,9 +137,9 @@ public class PostController implements Initializable, Receivable {
 					String strDay = (dayCount < 10) ? "0" + dayCount : String.valueOf(dayCount);
 					Button btn = new Button(strDay);
 					// 버튼 넓이 및 높이
-					btn.setPrefWidth(60);
-					btn.setPrefHeight(30);
-					btn.setStyle("-fx-background-color:#FFF2E6; -fx-background-radius:45;");
+					btn.setPrefWidth(45);
+					btn.setPrefHeight(45);
+					btn.setStyle("-fx-background-color:#FFF2E6; -fx-background-radius:180;");
 					calendarPane.add(btn, j, i - 1);
 					btn.setUserData(day);
 					System.out.println(date.equals(now));
