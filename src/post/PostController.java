@@ -238,7 +238,7 @@ public class PostController implements Initializable, Receivable {
 		
 		tableView.getSelectionModel().selectedItemProperty().addListener((t,o,n)->{
 			Main.castVO = n;
-			System.out.println(Main.castVO);
+			System.out.println(Main.castVO+"--------");
 		});;
 
 		// 예매하기 버튼 클릭시 로그인 화면 이동
@@ -251,13 +251,19 @@ public class PostController implements Initializable, Receivable {
 					Parent root = FXMLLoader.load(getClass().getResource("/member/Login.fxml"));
 					stage.setScene(new Scene(root));
 					stage.setTitle("로그인 화면");
+					stage.show();
+				} else if(Main.castVO == null){
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setHeaderText("예매하실 날짜와 시간을 먼저 선택해주세요.");
+					alert.showAndWait();
 				} else {
 					Parent root;
 					root = FXMLLoader.load(getClass().getResource("/reservation/Reservation.fxml"));
 					stage.setScene(new Scene(root));
 					stage.setTitle("예약하기");
+					stage.show();
+					
 				}
-				stage.show();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
