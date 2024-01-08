@@ -81,6 +81,7 @@ public class MainRouterThread extends Thread {
 					postController.receiveData(readMessage);
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				stopClient();
 				break;
 			}

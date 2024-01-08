@@ -10,7 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import login.MemberVO;
+import member.MemberVO;
 
 public class Main extends Application {
 

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -191,7 +192,7 @@ public class PostController implements Initializable, Receivable {
 			alert.setContentText("예매는 공연일 일주일 전 오후 2시부터 가능합니다.");
 			alert.showAndWait();
 		} else {
-			main.Main.thread.sendData("3|" + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+			main.Main.thread.sendData("3|0|" + selectDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		}
 
 	}
@@ -205,8 +206,8 @@ public class PostController implements Initializable, Receivable {
 	
 
 		// 리스트에 공연 시간 안내
-		main.Main.thread.sendData("3|" + now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-		
+		main.Main.thread.sendData("3|0|" + now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		list = FXCollections.observableArrayList();
 //		list = FXCollections.observableArrayList(
 //				new CastVO("2024-01-10", "7시", "광개토대왕, 왕건, 이순신, 안중근, 김유신"),
 //				new CastVO("2024-01-11", "7시", "박혁거세, 세종대왕, 단군왕검, 이순신, 김구"),
@@ -250,7 +251,7 @@ public class PostController implements Initializable, Receivable {
 			try {
 				Stage stage = new Stage();
 				if(Main.loginMember == null){
-					Parent root = FXMLLoader.load(getClass().getResource("/login/Login.fxml"));
+					Parent root = FXMLLoader.load(getClass().getResource("/member/Login.fxml"));
 					stage.setScene(new Scene(root));
 					stage.setTitle("로그인 화면");
 				} else {
@@ -272,20 +273,48 @@ public class PostController implements Initializable, Receivable {
 	@Override
 	public void receiveData(String message) {
 		// TODO receive된 데이터로 결과 처리
-		
+		System.out.println("PostController receive Data: " + message);
 		list.clear();
+		tableView.refresh();
 		
-		String[] row = message.split("|");
-		for(String data : row) {
-			if (data.equals("3")) {
-				continue;
-			}
-			
-			String[] castData = data.split(",");
-			list.add(new CastVO(castData[0], castData[1], castData[2]));
+		String[] row = message.split("\\|");
+		String firstOrder = row[0]; // == 3
+		// 3| == Post
+		String secondOrder = row[1]; 
+		// 3|0 == musicalInfo
+		// 3|0|0 == 뮤지컬 정보 있음
+		// 3|0|1 == 뮤지컬 정보 없음.
+		
+		// 추가 기능
+		// 3|1 ...
+		if(secondOrder.equals("0")){
+			String thirdOrder = row[2];
+			// 3|0 == musicalInfo
+			if(thirdOrder.equals("0")) {
+				// 뮤지컬 정보 있음 tableView에 출력
+				// 3|0|0| ~~~~~~~ 뮤지컬 목록 나열
+				// 3|0|0|2!2024-01-08!23:11:10!한글2!^3!2024-01-08!23:23:10!한글3!^
+				String musicalList = row[3];
+				
+				for(String data : musicalList.split("\\^")) {
+					System.out.println(data);
+					if (data.equals("")) {
+						continue;
+					}
+					String[] castData = data.split("\\!");
+					list.add(new CastVO(Integer.parseInt(castData[0]), castData[1], castData[2], castData[3]));
+				}
+			} // else {// 해당 되는 날짜에 뮤지컬 정보 없음.} // tableView에 목록 미출력
+		}else if(secondOrder.equals("1")) {
+			// 추가 기능...
 		}
-		
 	}
 
 }
+
+
+
+
+
+
 

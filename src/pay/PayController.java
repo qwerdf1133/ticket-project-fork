@@ -25,6 +25,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
@@ -263,30 +264,20 @@ public class PayController implements Initializable, Receivable {
 	// 서버에서 데이터 받아오기
 	@Override
 	public void receiveData(String message) {
-		Thread t = new Thread(()->{
-			while(true) {
-				try {
-					String receiveData = br.readLine();
-					if(receiveData == null) {
-						break;
-					}
-					// 로그인 10
-					// 회원가입 11?
-					String[] datas = receiveData.split("\\|");
-					String code = datas[10];
-					
-					// 로그인 일 경우
-					if(code.equals("10")) {
-						String[] login; // 어떻게 할지를 모르겠어요
-					// 회원 가입일 경우
-					}else if(code.equals("11")) {
-						String[] member;
-					}
-					
-				}catch (IOException e) {
-					break;
-				}
+		try {
+			System.out.println("receive"+message);
+			
+			String receiveData = br.readLine();
+			if(receiveData == null) {
+				
 			}
-		});
+			
+			String[] datas = receiveData.split("\\|");
+			
+			
+			
+		}catch (IOException e) {
+			
+		}
 	}
 }

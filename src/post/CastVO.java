@@ -1,46 +1,64 @@
 package post;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class CastVO {
-	private String 날짜;
-	private String 시간;
-	private String 캐스팅;
-
+	
+	private int id;
+	private String date;
+	private String time;
+	private String casting;
+	
 	public CastVO() {
+		super();
 	}
 
-	public CastVO(String 날짜, String 시간, String 캐스팅) {
-		this.날짜 = 날짜;
-		this.시간 = 시간;
-		this.캐스팅 = 캐스팅;
+	public CastVO(int id, String date, String time, String casting) {
+		super();
+		this.id = id;
+		this.date = date;
+		this.time = time;
+		this.casting = casting;
 	}
 
-	public String get날짜() {
-		return 날짜;
+	
+
+	public String getDate() {
+		return date;
 	}
 
-	public void set날짜(String 날짜) {
-		this.날짜 = 날짜;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
-	public String get시간() {
-		return 시간;
+	public String getTime() {
+		return time;
 	}
 
-	public void set시간(String 시간) {
-		this.시간 = 시간;
+	public void setTime(String time) {
+		this.time = time;
 	}
 
-	public String get캐스팅() {
-		return 캐스팅;
+	public String getCasting() {
+		return casting;
 	}
 
-	public void set캐스팅(String 캐스팅) {
-		this.캐스팅 = 캐스팅;
+	public void setCasting(String casting) {
+		this.casting = casting;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override
 	public String toString() {
-		return "CastVO [날짜=" + 날짜 + ", 시간=" + 시간 + ", 캐스팅=" + 캐스팅 + "]";
+		return "CastVO [id=" + id + ", date=" + date + ", time=" + time + ", casting=" + casting + "]";
 	}
 
 }

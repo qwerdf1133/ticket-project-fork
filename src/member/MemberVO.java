@@ -1,4 +1,4 @@
-package login;
+package member;
 
 /**
  * 회원 정보를 저장할 class

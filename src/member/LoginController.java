@@ -1,4 +1,4 @@
-package login;
+package member;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,7 +41,7 @@ public class LoginController implements Initializable, Receivable {
 			try {
 				// 회원 페이지 이동
 				Stage stage = new Stage();
-				Parent root = FXMLLoader.load(getClass().getResource("/login/Member.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/member/Member.fxml"));
 				Scene scene = new Scene(root);
 				stage.setScene(scene);
 				stage.setTitle("Login page");
@@ -69,8 +69,6 @@ public class LoginController implements Initializable, Receivable {
 		// 로그인에 필요한 정보로 서버에 로그인 요청
 		Main.thread.sendData("0|0|"+txtId.getText().trim()+","+txtPw.getText().trim());
 		
-		
-		
 	}
 	
 	
@@ -91,24 +89,25 @@ public class LoginController implements Initializable, Receivable {
 		System.out.println("LoginController : " + message);
 		// receive login data
 		// page 이동
-			Platform.runLater(()->{
-				try {
-				Stage stage = new Stage();
-				Parent root;
-				root = FXMLLoader.load(getClass().getResource("/reservation/Reservation.fxml"));
-				stage.setScene(new Scene(root));
-				stage.setTitle("예약하기");
-				stage.show();
-				return;
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			});
-		alert("로그인 실패");
+		Platform.runLater(()->{
+			try {
+			Stage stage = new Stage();
+			Parent root;
+			root = FXMLLoader.load(getClass().getResource("/reservation/Reservation.fxml"));
+			stage.setScene(new Scene(root));
+			stage.setTitle("예약하기");
+			stage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		/*
+		// alert("로그인 실패");
 		// 로그인 실패
 		txtId.clear();
 		txtPw.clear();
 		txtId.requestFocus();
+		*/
 	}
 }
 

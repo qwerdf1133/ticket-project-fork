@@ -24,6 +24,5 @@ fx:controller="pay.PayDoneController">
       <Label layoutX="120.0" layoutY="220.0" text="감사합니다." />
       <Separator layoutY="47.0" prefWidth="300.0" />
       <Button fx:id="btnCheck" layoutX="161.0" layoutY="256.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="예매 확인" />
->>>>>>> branch 'main' of https://github.com/nanaball/ticket.git
    </children>
 </AnchorPane>

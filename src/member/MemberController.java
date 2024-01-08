@@ -1,4 +1,4 @@
-package login;
+package member;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,7 +46,7 @@ public class MemberController implements Initializable, Receivable {
 			try {
 				// 회원 페이지 이동
 				Stage stage = new Stage();
-				Parent root = FXMLLoader.load(getClass().getResource("/login/Login.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/member/Login.fxml"));
 				Scene scene = new Scene(root);
 				stage.setScene(scene);
 				stage.setTitle("Join page");
