@@ -1,4 +1,4 @@
-package login;
+package member;
 
 import java.io.IOException;
 import java.net.URL;
