@@ -1,13 +1,12 @@
 package reservation;
 
-
 import java.io.IOException;
-import java.net.Socket;
 import java.net.URL;
-import java.net.UnknownHostException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -44,7 +43,7 @@ public class ReservationController implements Initializable, Receivable {
 	@FXML
 	private VBox btnBox;
 	@FXML
-	private TableView<ReservationVO> tableView;
+	private TableView<SeatVO> tableView;
 	@FXML
 	private TextField selectS;
 	@FXML
@@ -52,16 +51,21 @@ public class ReservationController implements Initializable, Receivable {
 	@FXML
 	private ComboBox<String> selectTime;
 
-	public static ObservableList<ReservationVO> list;
+	public static ObservableList<SeatVO> list;
 	ObservableList<String> ttime; // TableView
 
-	public static ReservationVO red;
+	public static SeatVO red;
 
 	public String reservSeat; // 선택된 좌석
 
 	// 선택된 버튼
 	public Button selectedButton;
 	public String btnStyle;
+	
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+	Connection conn = null;
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -69,7 +73,7 @@ public class ReservationController implements Initializable, Receivable {
 
 		// 예매하기 버튼 클릭시 창 띄우기		파일명 넣기 null 자리에 "pay.fxml"+fxml 파일에서 컨트롤러 확인
 		btnSc.setOnAction((e) -> {
-			if (selectS.equals(null))
+			if (selectS.equals(null) && selectDate.equals(null) && selectTime.equals(null))
 				return;
 			try {
 				Stage stage = new Stage();
@@ -83,60 +87,6 @@ public class ReservationController implements Initializable, Receivable {
 
 		});
 
-// 버튼 만들기
-		for (int i = 1; i < 11; i++) {
-			HBox hbox = new HBox();
-			hbox.setPrefWidth(500);
-			hbox.setSpacing(20);
-			for (int j = 1; j < 11; j++) {
-				int val = 64 + i;
-				char value = (char) val;
-				Button b = new Button(value + "|" + j + "");
-				b.setMaxWidth(Double.MAX_VALUE);
-				b.setStyle("-fx-border-color:black");
-				HBox.setHgrow(b, Priority.ALWAYS);
-
-				// 스타일 적용. 자리마다 다른 색
-				if (i < 6) {
-					b.setStyle("-fx-background-color:lightblue");
-					VBox.setMargin(hbox, new Insets(0, 0, 10, 0));
-				} else {
-					b.setStyle("-fx-background-color:lightpink");
-					VBox.setMargin(hbox, new Insets(10, 0, 10, 0));
-				}
-
-				hbox.getChildren().add(b);
-// 버튼 클릭 event
-				b.setOnAction(new EventHandler<ActionEvent>() {
-
-					@Override
-					public void handle(ActionEvent arg0) {
-						reservSeat = b.getText();
-						selectS.setText(reservSeat);
-						String receiveData = reservSeat;
-						if (selectedButton != null && btnStyle != null) {
-							selectedButton.setStyle(btnStyle);
-						}
-						selectedButton = b;
-						btnStyle = b.getStyle();
-						b.setStyle("-fx-background-color:gray");
-						b.setDefaultButton(false);
-						String[] ticket = receiveData.split("\\|");
-						String code = ticket[0];
-						String num = ticket[1];
-
-						if (code.equals("A") || code.equals("B") || code.equals("C") || code.equals("D")
-								|| code.equals("E")) {
-							System.out.println("3만원");
-							selectS.setText("VIP 좌석      " + reservSeat + "      10만원");
-						} else {
-							selectS.setText("일반좌석       " + reservSeat + "      3만원");
-						}
-					}
-				});
-			}
-			btnBox.getChildren().add(hbox);
-		}
 
 // 날짜 선택
 		for (MenuItem n : selectDate.getItems()) {
@@ -174,16 +124,16 @@ public class ReservationController implements Initializable, Receivable {
 			}
 		});
 // 좌석 정보 노출
-		ObservableList<ReservationVO> list = FXCollections.observableArrayList();
-		ReservationVO vips = new ReservationVO("VIP 좌석", "50석", "100000원");
-		ReservationVO order = new ReservationVO("일반좌석", "50석", "30000원");
+		ObservableList<SeatVO> list = FXCollections.observableArrayList();
+		SeatVO vips = new SeatVO("VIP 좌석", "50석", "100000원");
+		SeatVO order = new SeatVO("일반좌석", "50석", "30000원");
 		list.add(vips);
 		list.add(order);
 
-		ObservableList<TableColumn<ReservationVO, ?>> columnList = tableView.getColumns();
-		TableColumn<ReservationVO, ?> gradeColumn = columnList.get(0);
-		TableColumn<ReservationVO, ?> priceColumn = columnList.get(1);
-		TableColumn<ReservationVO, ?> charsColumn = columnList.get(2);
+		ObservableList<TableColumn<SeatVO, ?>> columnList = tableView.getColumns();
+		TableColumn<SeatVO, ?> gradeColumn = columnList.get(0);
+		TableColumn<SeatVO, ?> priceColumn = columnList.get(1);
+		TableColumn<SeatVO, ?> charsColumn = columnList.get(2);
 		gradeColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		charsColumn.setCellValueFactory(new PropertyValueFactory<>("chars"));
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -197,7 +147,82 @@ public class ReservationController implements Initializable, Receivable {
 	 */
 	@Override
 	public void receiveData(String message) {
-		// TODO receive server Data Reservation answer
-	}
+		// 예약 좌석 목록 
+		setSeats();
+		
+		
+		// 좌석정보 전달하여 중복체크하고 결제로 넘어가기		
+		String chars[] = selectS.getText().split(" ");
+		String seat = chars[2];
+		for(int i = 1; i<11; i++) {
+			/*
+			if() {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setContentText("다른 자리를 선택해주세요.");
+				alert.show();
+				return;
+			}
+			*/
+		}
+		
+	// 날짜 및 시간정보 받아오기
+		
+	} // end receiveData
+	
+	public void setSeats() {
+		// 버튼 만들기
+		for (int i = 1; i < 11; i++) {
+			HBox hbox = new HBox();
+			hbox.setPrefWidth(500);
+			hbox.setSpacing(20);
+			for (int j = 1; j < 11; j++) {
+				int val = 64 + i;
+				char value = (char) val;
+				Button b = new Button(value + "|" + j + "");
+				b.setMaxWidth(Double.MAX_VALUE);
+				b.setStyle("-fx-border-color:black");
+				HBox.setHgrow(b, Priority.ALWAYS);
 
+				// 스타일 적용. 자리마다 다른 색
+				if (i < 6) {
+					b.setStyle("-fx-background-color:lightblue");
+					VBox.setMargin(hbox, new Insets(0, 0, 10, 0));
+				} else {
+					b.setStyle("-fx-background-color:lightpink");
+					VBox.setMargin(hbox, new Insets(10, 0, 10, 0));
+				}
+
+				hbox.getChildren().add(b);
+				// 버튼 클릭 event
+				b.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent arg0) {
+						reservSeat = b.getText();
+						selectS.setText(reservSeat);
+						String receiveData = reservSeat;
+						if (selectedButton != null && btnStyle != null) {
+							selectedButton.setStyle(btnStyle);
+						}
+						selectedButton = b;
+						btnStyle = b.getStyle();
+						b.setStyle("-fx-background-color:gray");
+						b.setDefaultButton(false);
+						String[] ticket = receiveData.split("\\|");
+						String code = ticket[0];
+
+						if (code.equals("A") || code.equals("B") || code.equals("C") || code.equals("D") || code.equals("E")) {
+							System.out.println("10만원");
+							selectS.setText("VIP 좌석      " + reservSeat + "      10만원");
+						} else {
+							selectS.setText("일반좌석       " + reservSeat + "      3만원");
+							System.out.println("3만원");
+						}
+					}
+				});
+			}
+			btnBox.getChildren().add(hbox);
+		}
+	}
+	
 }

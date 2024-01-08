@@ -237,6 +237,11 @@ public class PostController implements Initializable, Receivable {
 			
 		}
 		tableView.setItems(list);
+		
+		tableView.getSelectionModel().selectedItemProperty().addListener((t,o,n)->{
+			Main.castVO = n;
+			System.out.println(Main.castVO);
+		});;
 
 		// 예매하기 버튼 클릭시 로그인 화면 이동
 		btnRe.setOnAction(e -> {
