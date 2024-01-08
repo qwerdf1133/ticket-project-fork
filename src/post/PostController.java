@@ -18,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -26,6 +25,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 import main.Receivable;
@@ -48,8 +48,7 @@ public class PostController implements Initializable, Receivable {
 	@FXML
 	private TableView<CastVO> tableView;
 
-	@FXML
-	private ListView<String> listView;
+
 
 	public static ObservableList<CastVO> list;
 
@@ -138,9 +137,9 @@ public class PostController implements Initializable, Receivable {
 					String strDay = (dayCount < 10) ? "0" + dayCount : String.valueOf(dayCount);
 					Button btn = new Button(strDay);
 					// 버튼 넓이 및 높이
-					btn.setPrefWidth(60);
-					btn.setPrefHeight(30);
-					btn.setStyle("-fx-background-color:#FFF2E6; -fx-background-radius:45;");
+					btn.setPrefWidth(45);
+					btn.setPrefHeight(45);
+					btn.setStyle("-fx-background-color:#FFF2E6; -fx-background-radius:180;");
 					calendarPane.add(btn, j, i - 1);
 					btn.setUserData(day);
 					System.out.println(date.equals(now));
@@ -241,8 +240,10 @@ public class PostController implements Initializable, Receivable {
 		btnRe.setOnAction(e -> {
 			try {
 				Stage stage = new Stage();
+				// 기존창에 포커스 주지 않음
+				stage.initModality(Modality.APPLICATION_MODAL);
 				if(Main.loginMember == null){
-					Parent root = FXMLLoader.load(getClass().getResource("/login/Login.fxml"));
+					Parent root = FXMLLoader.load(getClass().getResource("/member/Login.fxml"));
 					stage.setScene(new Scene(root));
 					stage.setTitle("로그인 화면");
 				} else {
