@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import member.MemberVO;
 import post.CastVO;
+import reservation.TicketVO;
 
 public class Main extends Application {
 
@@ -31,6 +32,9 @@ public class Main extends Application {
 	
 	// 테이블 뷰 에서 선택된 예약 뮤지컬 시간 정보
 	public static CastVO castVO;
+	
+	// 예매할 좌석 정보
+	public static TicketVO reservTicket;
 	
 	
 	/**
