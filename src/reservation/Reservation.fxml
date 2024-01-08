@@ -71,14 +71,14 @@ fx:controller="reservation.ReservationController">
             </Label>
             <MenuButton fx:id="selectDate" mnemonicParsing="false" text="날짜 선택">
               <items>
-                <MenuItem mnemonicParsing="false" text="2024년 1월 2일" />
-                <MenuItem mnemonicParsing="false" text="2024년 1월 3일" />
-                  <MenuItem mnemonicParsing="false" text="2024년 1월 4일" />
-                  <MenuItem mnemonicParsing="false" text="2024년 1월 5일" />
-                  <MenuItem mnemonicParsing="false" text="2024년 1월 6일" />
-                  <MenuItem mnemonicParsing="false" text="2024년 1월 7일" />
-                  <MenuItem mnemonicParsing="false" text="2024년 1월 8일" />
-                  <MenuItem mnemonicParsing="false" text="2024년 1월 9일" />
+                <MenuItem mnemonicParsing="false" text="2024년 1월 10일" />
+                <MenuItem mnemonicParsing="false" text="2024년 1월 11일" />
+                  <MenuItem mnemonicParsing="false" text="2024년 1월 12일" />
+                  <MenuItem mnemonicParsing="false" text="2024년 1월 13일" />
+                  <MenuItem mnemonicParsing="false" text="2024년 1월 14일" />
+                  <MenuItem mnemonicParsing="false" text="2024년 1월 15일" />
+                  <MenuItem mnemonicParsing="false" text="2024년 1월 16일" />
+                  <MenuItem mnemonicParsing="false" text="2024년 1월 17일" />
               </items>
                <HBox.margin>
                   <Insets bottom="10.0" left="50.0" right="10.0" top="10.0" />

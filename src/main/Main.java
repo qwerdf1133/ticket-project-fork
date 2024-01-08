@@ -11,6 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import member.MemberVO;
+import post.CastVO;
 
 public class Main extends Application {
 
@@ -27,6 +28,9 @@ public class Main extends Application {
 	 * 로그인 된 사용자인지 여부 확인
 	 */
 	public static MemberVO loginMember; 
+	
+	// 테이블 뷰 에서 선택된 예약 뮤지컬 시간 정보
+	public static CastVO castVO;
 	
 	
 	/**
