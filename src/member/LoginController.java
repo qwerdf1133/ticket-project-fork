@@ -41,7 +41,7 @@ public class LoginController implements Initializable, Receivable {
 			try {
 				// 회원 페이지 이동
 				Stage stage = new Stage();
-				Parent root = FXMLLoader.load(getClass().getResource("/login/Member.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/member/Member.fxml"));
 				Scene scene = new Scene(root);
 				stage.setScene(scene);
 				stage.setTitle("Login page");
