@@ -26,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 import main.Receivable;
@@ -250,6 +251,8 @@ public class PostController implements Initializable, Receivable {
 		btnRe.setOnAction(e -> {
 			try {
 				Stage stage = new Stage();
+				// 기존창에 포커스 주지 않음
+				stage.initModality(Modality.APPLICATION_MODAL);
 				if(Main.loginMember == null){
 					Parent root = FXMLLoader.load(getClass().getResource("/member/Login.fxml"));
 					stage.setScene(new Scene(root));

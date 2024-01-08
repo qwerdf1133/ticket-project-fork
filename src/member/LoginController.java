@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 import main.Receivable;
@@ -37,7 +38,6 @@ public class LoginController implements Initializable, Receivable {
 		btnLogin.setOnAction(e -> login());
 		
 		btnMember.setOnAction(e->{
-			
 			try {
 				// 회원 페이지 이동
 				Stage stage = new Stage();
@@ -87,27 +87,46 @@ public class LoginController implements Initializable, Receivable {
 	@Override
 	public void receiveData(String message) {
 		System.out.println("LoginController : " + message);
-		// receive login data
-		// page 이동
-		Platform.runLater(()->{
-			try {
-			Stage stage = new Stage();
-			Parent root;
-			root = FXMLLoader.load(getClass().getResource("/reservation/Reservation.fxml"));
-			stage.setScene(new Scene(root));
-			stage.setTitle("예약하기");
-			stage.show();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
-		/*
-		// alert("로그인 실패");
-		// 로그인 실패
-		txtId.clear();
-		txtPw.clear();
-		txtId.requestFocus();
-		*/
+		// 로그인 실패 0|0|0
+		// 로그인 성공 0|0|1|bobo17502,33332222,정순구,010-4143-0555
+		String[] order = message.split("\\|");
+		String isLogin = order[2];
+		if(isLogin.equals("0")) {
+			alert("로그인 실패");
+			Platform.runLater(()->{
+				// 로그인 실패
+				txtId.clear();
+				txtPw.clear();
+				txtId.requestFocus();
+			});
+
+		}else if(isLogin.equals("1")) {
+			// 로그인 성공
+			// receive login data
+			// page 이동
+			// 로그인된 사용자 정보 저장.
+			String[] loginMember = order[3].split(",");
+			System.out.println(loginMember);
+			Main.loginMember = new MemberVO(loginMember[0],loginMember[1],loginMember[2],loginMember[3]);
+			
+			Platform.runLater(()->{
+				// 로그인 무대 종료
+				Stage loginStage = (Stage)txtId.getScene().getWindow();
+				loginStage.close();
+				try {
+					Stage stage = new Stage();
+					stage.initModality(Modality.APPLICATION_MODAL);
+					Parent root;
+					root = FXMLLoader.load(getClass().getResource("/reservation/Reservation.fxml"));
+					stage.setScene(new Scene(root));
+					stage.setTitle("예약하기");
+					stage.show();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+			
+		}
 	}
 }
 

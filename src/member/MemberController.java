@@ -34,15 +34,11 @@ public class MemberController implements Initializable, Receivable {
 		
 		Main.thread.memberController = this;
 		
-		
-		
-		
 		System.out.println("호출시 자동 실행");
 		
 		btnJoin.setOnAction(e -> join());
 
         buttonGo.setOnAction(e->{
-			
 			try {
 				// 회원 페이지 이동
 				Stage stage = new Stage();
@@ -59,9 +55,7 @@ public class MemberController implements Initializable, Receivable {
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			
 		});
-
 	}
 		
 	
@@ -107,7 +101,7 @@ public class MemberController implements Initializable, Receivable {
 			return;
 		}
 
-		MemberVO m = new MemberVO(id, name, pw, phone);
+		MemberVO m = new MemberVO(id,pw,name,phone);
 		Main.thread.sendData("0|1|"+m);
 	}
 	
@@ -129,12 +123,26 @@ public class MemberController implements Initializable, Receivable {
 	public void receiveData(String message) {
 		System.out.println("MemberController : " + message);
 		//0|1|true, 0|1|false
-		//db.memberList.put(id, name, pw, phone);
-		System.out.println("회원가입 완료");
-		
-		alert("회원가입 완료");
-		// 회원 가입 완료 시 
-		// 화면 전환 -> 로그인
+		String isJoin = message.split("\\|")[2];
+		if(Boolean.parseBoolean(isJoin)) {
+			System.out.println("회원가입 완료");
+			alert("회원가입 완료");
+			// 화면 전환 -> 로그인
+			Platform.runLater(()->{
+				buttonGo.fire();
+			});
+		}else {
+			// 회원가입 실패
+			alert("회원가입 실패");
+			Platform.runLater(()->{
+				txtId.clear();
+				txtPw.clear();
+				txtName.clear();
+				txtRe.clear();
+				txtId.clear();
+				txtPhone.clear();
+				txtId.requestFocus();
+			});
+		}
 	}
-
 }
