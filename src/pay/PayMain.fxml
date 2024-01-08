@@ -15,7 +15,6 @@
 <AnchorPane prefHeight="500.0" 
 prefWidth="300.0" xmlns="http://javafx.com/javafx/21" 
 xmlns:fx="http://javafx.com/fxml/1" fx:controller="pay.PayController">
->>>>>>> branch 'main' of https://github.com/nanaball/ticket.git
 
    <children>
       <Label layoutX="74.0" layoutY="13.0" text="레미제라블 결제 화면">
