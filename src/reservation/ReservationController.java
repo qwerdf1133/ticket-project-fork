@@ -139,6 +139,7 @@ public class ReservationController implements Initializable, Receivable {
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 		tableView.setItems(list);
 
+		setSeats();
 	} // end initialize
 
 	
@@ -195,7 +196,6 @@ public class ReservationController implements Initializable, Receivable {
 				hbox.getChildren().add(b);
 				// 버튼 클릭 event
 				b.setOnAction(new EventHandler<ActionEvent>() {
-
 					@Override
 					public void handle(ActionEvent arg0) {
 						reservSeat = b.getText();
