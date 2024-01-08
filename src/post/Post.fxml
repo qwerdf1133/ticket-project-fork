@@ -16,9 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox prefHeight="700.0" prefWidth="1200.0" spacing="10.0" 
-xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="post.PostController">
+<HBox prefHeight="700.0" prefWidth="1200.0" spacing="10.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="post.PostController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
@@ -85,7 +83,7 @@ fx:controller="post.PostController">
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="92.0" layoutY="228.0" text="180,000원">
+            <Label layoutX="92.0" layoutY="228.0" text="VIP 100,000원">
                <font>
                   <Font size="14.0" />
                </font>
@@ -101,13 +99,18 @@ fx:controller="post.PostController">
             <Text layoutX="25.0" layoutY="504.0" strokeType="OUTSIDE" strokeWidth="0.0" text="탈옥으로 인해 5년+14년, 총합 19년을" />
             <Text layoutX="25.0" layoutY="535.0" strokeType="OUTSIDE" strokeWidth="0.0" text="살다가 형기를 다 채우고 세상에" />
             <Text layoutX="25.0" layoutY="563.0" strokeType="OUTSIDE" strokeWidth="0.0" text="나오게 된다" />
+            <Label layoutX="92.0" layoutY="254.0" text="일반 30,000원">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane>
          <children>
-            <BorderPane prefWidth="300.0" style="-fx-background-color:white;">
+            <BorderPane prefHeight="269.0" prefWidth="484.0" style="-fx-background-color:white;">
                <center>
-                  <GridPane fx:id="calendarPane" BorderPane.alignment="CENTER">
+                  <GridPane fx:id="calendarPane" prefHeight="228.0" prefWidth="508.0" BorderPane.alignment="CENTER">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -390,13 +393,13 @@ fx:controller="post.PostController">
                      <children>
                         <HBox alignment="CENTER" prefWidth="200.0">
                            <children>
-                              <Button fx:id="btnBMonth" mnemonicParsing="false" onAction="#BMonthClick" text="&lt;">
+                              <Button fx:id="btnBMonth" mnemonicParsing="false" onAction="#BMonthClick" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: f7c5aa; -fx-background-radius: 45;" text="&lt;">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="btnToday" mnemonicParsing="false" onAction="#TodayClick" text="Today" />
-                              <Button fx:id="btnNMonth" mnemonicParsing="false" onAction="#NMonthClick" text="&gt;">
+                              <Button fx:id="btnToday" mnemonicParsing="false" onAction="#TodayClick" prefHeight="35.0" style="-fx-background-color: f7c5aa; -fx-background-radius: 45;" text="Today" />
+                              <Button fx:id="btnNMonth" mnemonicParsing="false" onAction="#NMonthClick" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: f7c5aa; -fx-background-radius: 45;" text="&gt;">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
@@ -405,20 +408,20 @@ fx:controller="post.PostController">
                         </HBox>
                         <HBox prefWidth="200.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="42.0" style="-fx-text-fill: red;" text="일" textAlignment="CENTER" textFill="#f20a0a" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="42.0" text="월" textAlignment="CENTER" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="42.0" text="화" textAlignment="CENTER" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="42.0" text="수" textAlignment="CENTER" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="42.0" text="목" textAlignment="CENTER" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="42.0" text="금" textAlignment="CENTER" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="42.0" style="-fx-text-fill: blue;" text="토" textAlignment="CENTER" textFill="#4009cd" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" style="-fx-text-fill: red;" text="일" textAlignment="CENTER" textFill="#f20a0a" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="월" textAlignment="CENTER" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="화" textAlignment="CENTER" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="수" textAlignment="CENTER" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="목" textAlignment="CENTER" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" text="금" textAlignment="CENTER" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="80.0" style="-fx-text-fill: blue;" text="토" textAlignment="CENTER" textFill="#4009cd" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
                </top>
             </BorderPane>
-            <Button fx:id="btnRe" alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="614.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="예매하기" textAlignment="CENTER">
+            <Button fx:id="btnRe" alignment="CENTER" contentDisplay="CENTER" layoutX="142.0" layoutY="613.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: f7c5aa; -fx-background-radius: 45;" text="예매하기" textAlignment="CENTER">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
