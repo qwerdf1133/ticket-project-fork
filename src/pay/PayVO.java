@@ -1,15 +1,19 @@
 package pay;
 
+import javafx.scene.control.TextField;
+
 public class PayVO {
-	private String user;
+	private String name;
 	private String price;
 	private String date;
 	private String musical;
 	private String seat;
 	
-	public PayVO(String user, String price, String date, String musical, String seat) {
+	public PayVO(TextField price, TextField date, TextField musical, TextField seat) {}
+	
+	public PayVO(String name, String price, String date, String musical, String seat) {
 		super();
-		this.user = user;
+		this.name = name;
 		this.price = price;
 		this.date = date;
 		this.musical = musical;
@@ -17,13 +21,13 @@ public class PayVO {
 	}
 
 
-	public String getUser() {
-		return user;
+	public String getName() {
+		return name;
 	}
 
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
@@ -47,6 +51,7 @@ public class PayVO {
 	}
 
 
+	
 	public String getMusical() {
 		return musical;
 	}
@@ -68,9 +73,8 @@ public class PayVO {
 
 	@Override
 	public String toString() {
-		return "PayVO [user=" + user + ", price=" + price + ", date=" + date + ", musical=" + musical + ", seat=" + seat
+		return "PayVO [name=" + name + ", price=" + price + ", date=" + date + ", musical=" + musical + ", seat=" + seat
 				+ "]";
 	}
-	
-	
+
 }
