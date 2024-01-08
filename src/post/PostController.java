@@ -26,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 import main.Receivable;
@@ -137,8 +138,10 @@ public class PostController implements Initializable, Receivable {
 					// 버튼 날짜 생성
 					String strDay = (dayCount < 10) ? "0" + dayCount : String.valueOf(dayCount);
 					Button btn = new Button(strDay);
-					// 버튼 넓이
-					btn.setPrefWidth(30);
+					// 버튼 넓이 및 높이
+					btn.setPrefWidth(60);
+					btn.setPrefHeight(30);
+					btn.setStyle("-fx-background-color:#FFF2E6; -fx-background-radius:45;");
 					calendarPane.add(btn, j, i - 1);
 					btn.setUserData(day);
 					System.out.println(date.equals(now));
@@ -157,10 +160,11 @@ public class PostController implements Initializable, Receivable {
 
 					// 일요일 색상 지정
 					if (day.getDayOfWeek().getValue() == 7) {
-						btn.setStyle("-fx-text-fill:red");
+						btn.setStyle("-fx-text-fill:red; -fx-background-color:#FFF2E6; -fx-background-radius:45;");
+						
 						// 토요일 색상 지정
 					} else if (day.getDayOfWeek().getValue() == 6) {
-						btn.setStyle("-fx-text-fill:blue");
+						btn.setStyle("-fx-text-fill:blue; -fx-background-color:#FFF2E6; -fx-background-radius:45;");
 					}
 
 					System.out.print(" day : " + day.getDayOfMonth());
@@ -217,21 +221,6 @@ public class PostController implements Initializable, Receivable {
 //				new CastVO("2024-01-15", "7시", "단군왕검, 장보고, 이순신, 강감찬, 이황"),
 //				new CastVO("2024-01-16", "7시", "대조영, 안중근, 서희, 강감찬, 단군왕검"),
 //				new CastVO("2024-01-17", "7시", "고길동, 장보고, 서희, 광개토대왕, 이황"),
-//				new CastVO("2024-01-18", "7시", "대조영, 이순신, 고길동, 이순신, 이황"),
-//				new CastVO("2024-01-19", "7시", "안중근, 장보고, 서희, 강감찬, 이황"),
-//				new CastVO("2024-01-20", "7시", "대조영, 장보고, 서희, 강감찬, 이황"),
-//				new CastVO("2024-01-21", "7시", "대조영, 광개토대왕, 서희, 단군왕검, 이순신"),
-//				new CastVO("2024-01-22", "7시", "대조영, 안중근, 서희, 강감찬, 이황"),
-//				new CastVO("2024-01-23", "7시", "고길동, 장보고, 서희, 강감찬, 이황"),
-//				new CastVO("2024-01-24", "7시", "대조영, 고길동, 서희, 강감찬, 이황"),
-//				new CastVO("2024-01-25", "7시", "이순신, 장보고, 안중근, 강감찬, 이황"),
-//				new CastVO("2024-01-26", "7시", "대조영, 광개토대왕, 서희, 강감찬, 안중근"),
-//				new CastVO("2024-01-27", "7시", "대조영, 장보고, 서희, 강감찬, 고길동"),
-//				new CastVO("2024-01-28", "7시", "이순신, 김유신, 서희, 이순신, 이황"),
-//				new CastVO("2024-01-29", "7시", "대조영, 장보고, 서희, 강감찬, 이황"),
-//				new CastVO("2024-01-30", "7시", "고길동, 단군왕검, 서희, 강감찬, 이황"),
-//				new CastVO("2024-01-31", "7시", "대조영, 장보고, 김유신, 고길동, 이황"),
-//				new CastVO("2024-02-01", "7시", "단군왕검, 장보고, 서희, 강감찬, 김유신")
 //			);
 
 		Class<CastVO> clazz = CastVO.class;
@@ -242,7 +231,10 @@ public class PostController implements Initializable, Receivable {
 			TableColumn<CastVO, String> tc = new TableColumn<>(time);
 			tc.setCellValueFactory(new PropertyValueFactory<>(time));
 			tc.setStyle("-fx-alignment:center; -fx-text-fill:black;");
+			// tc.setPrefWidth(double value);
+
 			tableView.getColumns().add(tc);
+			
 		}
 		tableView.setItems(list);
 
@@ -250,6 +242,8 @@ public class PostController implements Initializable, Receivable {
 		btnRe.setOnAction(e -> {
 			try {
 				Stage stage = new Stage();
+				// 기존창에 포커스 주지 않음
+				stage.initModality(Modality.APPLICATION_MODAL);
 				if(Main.loginMember == null){
 					Parent root = FXMLLoader.load(getClass().getResource("/member/Login.fxml"));
 					stage.setScene(new Scene(root));
