@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,8 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -31,6 +29,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.Main;
 import main.Receivable;
+import pay.PayController;
 
 public class ReservationController implements Initializable, Receivable {
 
@@ -73,10 +72,21 @@ public class ReservationController implements Initializable, Receivable {
 			
 			try {
 				Stage stage = new Stage();
-				Parent root = FXMLLoader.load(getClass().getResource("/pay/PayMain.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/pay/PayMain.fxml");
+				Parent root = loader.load();
+				PayController controller = loader.getController();
+				controller.setStage(stage);
 				stage.setScene(new Scene(root));
 				stage.setTitle("결제하기");
 				stage.show();
+				
+				// 창 닫기 눌렀을 때 나오는 확인 알림창
+				// 확인을 누르면 창이 결제 취소, 취소를 누르면 결제 진행
+				// 근데 화면이 뒤로 숨어요
+				stage.setOnCloseRequest(event->{
+					event.consume();
+					Cancel(stage);
+				});
 				
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -199,6 +209,21 @@ public class ReservationController implements Initializable, Receivable {
 		alert.setContentText(msg);
 		alert.show();
 		
+	}
+	
+	// PayMain 창 닫기 눌렀을 때 알림창
+	public void Cancel(Stage stage){
+	    Alert alert1 = new Alert(AlertType.CONFIRMATION);
+	    alert1.setTitle("결제 창 나가기");				
+	    alert1.setHeaderText("정말로 결제 창에서 나가시겠습니까?");
+	    alert1.setContentText("작성한 정보는 저장되지 않습니다.");
+	    
+	    if(alert1.showAndWait().get() == ButtonType.OK) {
+	  	  System.out.println("결제 취소");
+	  	  stage.close();
+	    }else {
+	    	System.out.println("결제 진행");
+	    }
 	}
 	
 }

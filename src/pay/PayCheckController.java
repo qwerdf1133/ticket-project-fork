@@ -29,10 +29,14 @@ public class PayCheckController implements Initializable, Receivable {
 
 	Connection conn = null;
 	
+	// PayController Stage
+	private Stage payStage;
+	// payDoneController Stage
+	private Stage payDoneStage;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.thread.payCheckBontroller = this;
-		
 		
 		// MySQL 연결
 //			try {
@@ -137,8 +141,14 @@ public class PayCheckController implements Initializable, Receivable {
 					alert1.setContentText("다음에 다시 만나요 ㅠㅠ");
 					Optional<ButtonType> result1 = alert1.showAndWait();
 					if(result1.get() == ButtonType.OK) {
-						Platform.exit();
+						// Platform.exit();		// 바꿔야 확인 눌렀을때 안사라짐
 						// 예매 취소를 눌러서 DB에 delete table where = ? 가 작동되게 해야 함
+						// 현재창 
+						Stage now = (Stage)btnCancel.getScene().getWindow();
+						now.close();
+						payStage.close();
+						payDoneStage.close();
+						
 						
 						// 다시 메인 포스터 화면으로 이동
 						// 원래 있던 창을 다시 끄고 싶은데 방법을 모름
@@ -156,6 +166,13 @@ public class PayCheckController implements Initializable, Receivable {
 	// 방법을 모름
 	@Override
 	public void receiveData(String message) {
+		
+		
+	}
+
+	public void setStage(Stage payStage, Stage payDoneStage) {
+		this.payStage = payStage;
+		this.payDoneStage = payDoneStage;
 		
 	}
 	
