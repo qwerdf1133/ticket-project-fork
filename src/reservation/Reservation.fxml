@@ -14,7 +14,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservation.ReservationController">
+<BorderPane 
+prefHeight="700.0" prefWidth="910.0" 
+xmlns="http://javafx.com/javafx/17" 
+xmlns:fx="http://javafx.com/fxml/1" 
+fx:controller="reservation.ReservationController">
    <right>
       <VBox alignment="CENTER" prefHeight="600.0" prefWidth="272.0" BorderPane.alignment="CENTER">
          <children>
@@ -59,9 +63,14 @@
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="57.0" prefWidth="109.0" text="좌석 선택">
+            <Label prefHeight="57.0" prefWidth="109.0" text="좌석 선택" textFill="#0deedb">
                <font>
                   <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="selectMusical" textAlignment="CENTER">
+               <font>
+                  <Font size="22.0" />
                </font>
             </Label>
             <Label fx:id="selectDate" alignment="CENTER">

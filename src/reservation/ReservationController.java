@@ -45,7 +45,7 @@ public class ReservationController implements Initializable, Receivable {
 	@FXML
 	private Label selectDate;
 	@FXML
-	private Label selectTime;
+	private Label selectTime, selectMusical;
 
 	public static ObservableList<SeatVO> list;
 	ObservableList<String> ttime; // TableView
@@ -63,7 +63,10 @@ public class ReservationController implements Initializable, Receivable {
 		Main.thread.reservationController = this;
 		selectDate.setText(Main.castVO.getDate());
 		selectTime.setText(Main.castVO.getTime());
-
+// 뮤지컬명 추가용
+//		selectMusical.setText(Main.castVO.getMusicalNa());
+		
+		
 		// 예매하기 버튼 클릭시 창 띄우기 파일명 넣기 null 자리에 "pay.fxml"+fxml 파일에서 컨트롤러 확인
 		btnSc.setOnAction((e) -> {
 			if(Main.reservTicket == null) {
@@ -86,17 +89,15 @@ public class ReservationController implements Initializable, Receivable {
 
 		// 좌석 정보 노출
 		ObservableList<SeatVO> list = FXCollections.observableArrayList();
-		SeatVO vips = new SeatVO("VIP 좌석", "50석", "100000원");
-		SeatVO order = new SeatVO("일반좌석", "50석", "30000원");
+		SeatVO vips = new SeatVO("VIP 좌석", "100000원");
+		SeatVO order = new SeatVO("일반좌석", "30000원");
 		list.add(vips);
 		list.add(order);
-
+// 1/9 잔여좌석 삭제
 		ObservableList<TableColumn<SeatVO, ?>> columnList = tableView.getColumns();
 		TableColumn<SeatVO, ?> gradeColumn = columnList.get(0);
 		TableColumn<SeatVO, ?> priceColumn = columnList.get(1);
-		TableColumn<SeatVO, ?> charsColumn = columnList.get(2);
 		gradeColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-		charsColumn.setCellValueFactory(new PropertyValueFactory<>("chars"));
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 		tableView.setItems(list);
 
@@ -112,18 +113,9 @@ public class ReservationController implements Initializable, Receivable {
 		// 예약 좌석 목록 
 		setSeats();
 		// 좌석정보 전달하여 중복체크하고 결제로 넘어가기		
-		String chars[] = selectS.getText().split(" ");
-		String seat = chars[2];
-		for(int i = 1; i<11; i++) {
-			/*
-			if() {
-				alertWarning("다른 자리를 선택해주세요.");
-				return;
-			}
-			*/
-		}
 		
-	// 날짜 및 시간정보 받아오기
+		
+
 		
 	} // end receiveData
 	
@@ -153,6 +145,8 @@ public class ReservationController implements Initializable, Receivable {
 				hbox.getChildren().add(b);
 				// 버튼 클릭 event
 				b.setOnAction(new EventHandler<ActionEvent>() {
+				
+					
 					@Override
 					public void handle(ActionEvent arg0) {
 						reservSeat = b.getText();
@@ -170,6 +164,7 @@ public class ReservationController implements Initializable, Receivable {
 
 						Main.reservTicket = new TicketVO();
 						Main.reservTicket.setUserID(Main.loginMember.getUserID());
+// Main.reservTicket.setMusical(Main.castVO.getMusicalNa()); 뮤지컬 추가되면 바꿔주기
 						Main.reservTicket.setMusical("레미제라블");
 						Main.reservTicket.setDate(Main.castVO.getDate());
 						Main.reservTicket.setTime(Main.castVO.getTime());
