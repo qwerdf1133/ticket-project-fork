@@ -116,7 +116,7 @@ public class LoginController implements Initializable, Receivable {
 				try {
 					Stage stage = new Stage();
 					stage.initModality(Modality.APPLICATION_MODAL);
-					
+					/*
 					if(Main.castVO == null){
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setHeaderText("예매하실 날짜와 시간을 먼저 선택해주세요.");
@@ -124,7 +124,7 @@ public class LoginController implements Initializable, Receivable {
 						return;
 					//?	
 					}
-					
+					*/
 					Parent root;
 					root = FXMLLoader.load(getClass().getResource("/reservation/Reservation.fxml"));
 					stage.setScene(new Scene(root));
