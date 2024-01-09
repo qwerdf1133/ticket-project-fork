@@ -52,8 +52,6 @@ public class ReservationController implements Initializable, Receivable {
 	public static ObservableList<SeatVO> list;
 	ObservableList<String> ttime; // TableView
 
-	public static SeatVO red;
-
 	public String reservSeat; // 선택된 좌석
 
 	// 선택된 버튼
@@ -65,12 +63,8 @@ public class ReservationController implements Initializable, Receivable {
 		Main.thread.reservationController = this;
 		selectDate.setText(Main.castVO.getDate());
 		selectTime.setText(Main.castVO.getTime());
-
-// 뮤지컬명 추가용
-//		selectMusical.setText(Main.castVO.getMusicalNa());
+		selectMusical.setText(Main.castVO.getMusicalNa());
 		
-		
-
 		// 예매하기 버튼 클릭시 창 띄우기 파일명 넣기 null 자리에 "pay.fxml"+fxml 파일에서 컨트롤러 확인
 		btnSc.setOnAction((e) -> {
 			if(Main.reservTicket == null) {
@@ -109,7 +103,7 @@ public class ReservationController implements Initializable, Receivable {
 		SeatVO order = new SeatVO("일반좌석", "30000원");
 		list.add(vips);
 		list.add(order);
-// 1/9 잔여좌석 삭제
+
 		ObservableList<TableColumn<SeatVO, ?>> columnList = tableView.getColumns();
 		TableColumn<SeatVO, ?> gradeColumn = columnList.get(0);
 		TableColumn<SeatVO, ?> priceColumn = columnList.get(1);
@@ -129,16 +123,13 @@ public class ReservationController implements Initializable, Receivable {
 		// 예약 좌석 목록 
 		setSeats();
 
-		String chars[] = selectS.getText().split(" ");
-		String seat = chars[2];
-		for(int i = 1; i<11; i++) {
 			/*
 			if() {
 				alertWarning("다른 자리를 선택해주세요.");
 				return;
 			}
 			*/
-		}
+		
 
 		
 		
@@ -155,7 +146,7 @@ public class ReservationController implements Initializable, Receivable {
 			for (int j = 1; j < 11; j++) {
 				int val = 64 + i;
 				char value = (char) val;
-				Button b = new Button(value + "|" + j + "");
+				Button b = new Button(value + "-" + j + "");
 				b.setMaxWidth(Double.MAX_VALUE);
 				b.setStyle("-fx-border-color:black");
 				HBox.setHgrow(b, Priority.ALWAYS);
@@ -185,15 +176,12 @@ public class ReservationController implements Initializable, Receivable {
 						btnStyle = b.getStyle();
 						b.setStyle("-fx-background-color:gray");
 						b.setDefaultButton(false);
-						String[] ticket = receiveData.split("\\|");
+						String[] ticket = receiveData.split("\\-");
 						String code = ticket[0];
 
 						Main.reservTicket = new TicketVO();
 						Main.reservTicket.setUserID(Main.loginMember.getUserID());
-
-// Main.reservTicket.setMusical(Main.castVO.getMusicalNa()); 뮤지컬 추가되면 바꿔주기
-
-						Main.reservTicket.setMusical("레미제라블");
+						Main.reservTicket.setMusical(Main.castVO.getMusicalNa());
 						Main.reservTicket.setDate(Main.castVO.getDate());
 						Main.reservTicket.setTime(Main.castVO.getTime());
 						Main.reservTicket.setSeatNum(reservSeat);
