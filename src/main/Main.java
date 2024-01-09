@@ -11,6 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import member.MemberVO;
+import pay.PayVO;
 import post.CastVO;
 import reservation.TicketVO;
 
@@ -35,6 +36,9 @@ public class Main extends Application {
 	
 	// 예매할 좌석 정보
 	public static TicketVO reservTicket;
+	
+	// 결제 정보
+	public static PayVO payVO;
 	
 	
 	/**

@@ -4,14 +4,14 @@ import javafx.scene.control.TextField;
 
 public class PayVO {
 	private String name;
-	private String price;
+	private Integer price;
 	private String date;
 	private String musical;
 	private String seat;
 	
 	public PayVO(TextField price, TextField date, TextField musical, TextField seat) {}
 	
-	public PayVO(String name, String price, String date, String musical, String seat) {
+	public PayVO(String name, Integer price, String date, String musical, String seat) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -31,12 +31,12 @@ public class PayVO {
 	}
 
 
-	public String getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
 
-	public void setPrice(String price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 

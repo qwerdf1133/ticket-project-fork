@@ -23,6 +23,11 @@ public class PayDoneController implements Initializable, Receivable  {
 	@FXML private Label userID, price, date, musical, seat;
 	@FXML private Button btnExit, btnCheck;
 	
+	// PayController Stage
+	private Stage payStage;
+	// payDoneController Stage
+	private Stage payDoneStage;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.thread.payDoneController = this;
@@ -40,6 +45,8 @@ public class PayDoneController implements Initializable, Receivable  {
 				stage.initStyle(StageStyle.UTILITY);		
 				stage.setTitle("레미제라블 예매 확인");
 				stage.setScene(new Scene(root1));
+				PayCheckController controller = fxmlLoader.getController();
+				controller.setStage(this.payStage, this.payDoneStage);
 				stage.show();
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -58,6 +65,12 @@ public class PayDoneController implements Initializable, Receivable  {
 	// 방법을 모름
 	@Override
 	public void receiveData(String message) {
+		
+	}
+
+	public void setStage(Stage payStage, Stage payDoneStage) {
+		this.payStage = payStage;
+		this.payDoneStage = payDoneStage;
 		
 	}
 	
