@@ -55,6 +55,7 @@ public class PayDoneController implements Initializable, Receivable  {
 		});
 	}
 
+	// 방법을 모름
 	@Override
 	public void receiveData(String message) {
 		
