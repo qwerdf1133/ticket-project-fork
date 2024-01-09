@@ -59,6 +59,9 @@ public class PayController implements Initializable, Receivable {
 	
 	@FXML private Hyperlink trade, info, les, SMS;
 	
+	// 현재 payController 무대 정보 추가 setStage(stage);
+	private Stage stage;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.thread.payController = this;
@@ -133,22 +136,24 @@ public class PayController implements Initializable, Receivable {
 			// 필수 약관 동의에 체크를 하고 결제하기를 눌렀을 때만 다음 화면으로 넘어감.
 			if(terms1.isSelected() && terms2.isSelected() && terms3.isSelected()) {
 			
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pay/PayDone.fxml"));
-			Parent root1;
-			Stage stage;
-			
-			try {
-				root1 = (Parent) fxmlLoader.load();
-				stage = new Stage();
-				stage.initModality(Modality.APPLICATION_MODAL); // 팝업처럼 화면이 뜸
-				stage.initStyle(StageStyle.UNDECORATED);		
-				stage.setTitle("레미제라블 결제 완료");
-				stage.setScene(new Scene(root1));
-				stage.show();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-				return;
-			};
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pay/PayDone.fxml"));
+				Parent root1;
+				Stage stage;
+				
+				try {
+					root1 = fxmlLoader.load();
+					stage = new Stage();
+					stage.initModality(Modality.APPLICATION_MODAL); // 팝업처럼 화면이 뜸
+					stage.initStyle(StageStyle.UNDECORATED);		
+					stage.setTitle("레미제라블 결제 완료");
+					stage.setScene(new Scene(root1));
+					PayDoneController controller = fxmlLoader.getController();
+					controller.setStage(this.stage, stage);
+					stage.show();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+					return;
+				};
 			
 			// 체크를 하지 않으면 약관에 동의하지 않았다는 화면이 새로 뜸.
 			}else {
@@ -251,6 +256,7 @@ public class PayController implements Initializable, Receivable {
 		
 	} // 이니셜라이즈 끝
 
+	// 이거도 모름 
 	public void addPay() {
 	
 		PayVO p = new PayVO(price, date, musical, seat);
@@ -259,6 +265,7 @@ public class PayController implements Initializable, Receivable {
 	}
 	
 	// 서버에서 데이터 받아오기
+	// 방법을 모름
 	@Override
 	public void receiveData(String message) {
 		
@@ -273,6 +280,11 @@ public class PayController implements Initializable, Receivable {
 			System.out.println("결제 실패");
 				
 		}
+		
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
 		
 	}
 }

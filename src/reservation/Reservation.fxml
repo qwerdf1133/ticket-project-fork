@@ -14,6 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
+
 <BorderPane 
 prefHeight="700.0" prefWidth="910.0" 
 xmlns="http://javafx.com/javafx/17" 
@@ -68,11 +69,13 @@ fx:controller="reservation.ReservationController">
                   <Font size="24.0" />
                </font>
             </Label>
+
             <Label fx:id="selectMusical" textAlignment="CENTER">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
+
             <Label fx:id="selectDate" alignment="CENTER">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
