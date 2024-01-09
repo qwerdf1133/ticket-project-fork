@@ -259,6 +259,7 @@ public class PayController implements Initializable, Receivable {
 	}
 	
 	// 서버에서 데이터 받아오기
+	// 방법을 모름
 	@Override
 	public void receiveData(String message) {
 		
