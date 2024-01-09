@@ -3,7 +3,6 @@ package reservation;
 public class SeatVO {
 
 	private String name;
-	private String chars;
 	private String price;
 
 	public String getPrice() {
@@ -14,9 +13,8 @@ public class SeatVO {
 		this.price = price;
 	}
 
-	public SeatVO(String name, String chars, String price) {
+	public SeatVO(String name, String price) {
 		this.name = name;
-		this.chars = chars;
 		this.price = price;
 	}
 
@@ -28,17 +26,11 @@ public class SeatVO {
 		this.name = name;
 	}
 
-	public String getChars() {
-		return chars;
-	}
-
-	public void setChars(String chars) {
-		this.chars = chars;
-	}
-
 	@Override
 	public String toString() {
-		return "ResevationVO [name=" + name + ", chars=" + chars + ", price=" + price + "]";
+		return "SeatVO [name=" + name + ", price=" + price + "]";
 	}
+
+
 
 }

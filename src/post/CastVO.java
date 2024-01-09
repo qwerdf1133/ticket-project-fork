@@ -1,8 +1,5 @@
 package post;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 public class CastVO {
 	
 	private int id;
