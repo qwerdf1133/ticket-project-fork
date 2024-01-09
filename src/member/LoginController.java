@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -32,7 +33,18 @@ public class LoginController implements Initializable, Receivable {
 		
 		
 		Platform.runLater(() -> {
-			btnLogin.requestFocus();
+			txtId.requestFocus();
+		});
+		
+		//아이디에서 Enter -> 비밀번호 창으로 포커스
+		txtId.setOnKeyPressed(e->{
+			if(e.getCode() == KeyCode.ENTER) txtPw.requestFocus();
+		});
+		
+		txtPw.setOnKeyPressed(e->{
+			if(e.getCode() == KeyCode.ENTER) {
+				btnLogin.fire();
+			}
 		});
 
 		btnLogin.setOnAction(e -> login());
