@@ -67,7 +67,7 @@ public class PostController implements Initializable, Receivable {
 	@FXML
 	void TodayClick(ActionEvent e) {
 		date = LocalDate.now();
-		String strYearMonth = (date.getYear()) + "년" + (date.getMonthValue()) + "월";
+		String strYearMonth = (date.getYear()) + "년  " + (date.getMonthValue()) + "월 ";
 		btnToday.setText(strYearMonth);
 		setButton();
 	}
@@ -76,7 +76,7 @@ public class PostController implements Initializable, Receivable {
 	@FXML
 	void BMonthClick(ActionEvent e) {
 		date = date.minusMonths(1);
-		String strYearMonth = (date.getYear()) + "년" + (date.getMonthValue()) + "월";
+		String strYearMonth = (date.getYear()) + "년  " + (date.getMonthValue()) + "월 ";
 		btnToday.setText(strYearMonth);
 		setButton();
 	}
@@ -85,7 +85,7 @@ public class PostController implements Initializable, Receivable {
 	@FXML
 	void NMonthClick(ActionEvent e) {
 		date = date.plusMonths(1);
-		String strYearMonth = (date.getYear()) + "년" + (date.getMonthValue()) + "월";
+		String strYearMonth = (date.getYear()) + "년  " + (date.getMonthValue()) + "월 ";
 		btnToday.setText(strYearMonth);
 		setButton();
 	}
@@ -161,9 +161,13 @@ public class PostController implements Initializable, Receivable {
 					if (day.getDayOfWeek().getValue() == 7) {
 						btn.setStyle("-fx-text-fill:red; -fx-background-color:#FFF2E6; -fx-background-radius:45;");
 
-						// 토요일 색상 지정
+					// 토요일 색상 지정
 					} else if (day.getDayOfWeek().getValue() == 6) {
 						btn.setStyle("-fx-text-fill:blue; -fx-background-color:#FFF2E6; -fx-background-radius:45;");
+					
+					// 현재 날짜 색상 지정	
+					} else if(day.equals(now)) {
+						btn.setStyle("-fx-text-fill:#47C83E; -fx-font-weight:bolder; -fx-background-color:#FFF2E6; -fx-background-radius:45;");
 					}
 
 					System.out.print(" day : " + day.getDayOfMonth());
@@ -258,7 +262,8 @@ public class PostController implements Initializable, Receivable {
 					alert.setHeaderText("예매하실 날짜와 시간을 먼저 선택해주세요.");
 					alert.showAndWait();
 				} else {
-					Parent root = FXMLLoader.load(getClass().getResource("/reservation/Reservation.fxml"));
+					Parent root;
+					root = FXMLLoader.load(getClass().getResource("/reservation/Reservation.fxml"));
 					stage.setScene(new Scene(root));
 					stage.setTitle("예약하기");
 					stage.show();
