@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import main.Main;
 import main.Receivable;
+import reservation.TicketVO;
 
 public class PayCheckController implements Initializable, Receivable {
 
@@ -40,71 +41,12 @@ public class PayCheckController implements Initializable, Receivable {
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.thread.payCheckController = this;
 		
-		// MySQL 연결
-//			try {
-//				Class.forName("com.mysql.cj.jdbc.Driver");
-//				System.out.println("driver 존재");
-//				
-//				Properties prop = new Properties();
-//				
-//				// 임의로 DB를 만들어서 주소를 정함
-//				// 주소만 바꾸면 연동 될 것 같아요
-//				prop.load(new FileReader("src/pay/DB/mysql.properties")); 
-//				
-//				System.out.println(prop);
-//				
-//				conn = DriverManager.getConnection(prop.getProperty("url"),prop);
-//				System.out.println(conn);
-//				
-//				// 임의로 만든 DB에서 선택한 데이터만 찾는 수식
-//				String sql = "" +
-//				 "SELECT name, price, seat, musical, date from dummy where userID=?";
-//				
-//				PreparedStatement pstmt = conn.prepareStatement(sql);
-//				// 아이디가 h 인 사람의 가격, 좌석, 예매한 작품, 날짜 정보 구현
-//				// 나중에 로그인 정보와 맞추면 될 듯
-//				// 어덯게 하지..?
-//				pstmt.setString(1, "h");	
-//				ResultSet rs = pstmt.executeQuery();
-//				if(rs.next()) {
-//					String userID = rs.getString("userID");
-//					// 가격 정보
-//					String price = rs.getString("price");
-//					// 좌석 정보
-//					String seat = rs.getString("seat");
-//					// 뮤지컬 정보
-//					String musical = rs.getString("musical");
-//					// 날짜 정보
-//					String date = rs.getString("date");
-//					
-//					// 확인용 
-//					System.out.println(userID+":"+price+":"+seat+":"+musical+":"+date);
-//					
-//				}else {
-//					System.out.println("존재X");
-//				}
-//				
-//				name.setText(rs.getString("userID"));
-//				seat.setText(rs.getString("seat"));
-//				musical.setText(rs.getString("musical"));
-//				date.setText(rs.getString("date"));
-//					
-//				} catch (FileNotFoundException e) {
-//					System.out.println("file not found");
-//					
-//				} catch (IOException e) {
-//					System.out.println("ioe err");
-//					
-//				} catch (SQLException e1) {
-//					System.out.println("sql error");
-//					
-//				} catch (ClassNotFoundException e1) {
-//					System.out.println("class not found");
-//	
-//				}
+		name.setText(Main.reservTicket.getUserID());
+		seat.setText(Main.reservTicket.getSeatNum());
+		musical.setText(Main.reservTicket.getMusical());
+		date.setText(Main.reservTicket.getDate());
 		
-			
-			
+		
 			// 확인 버튼으로 메인화면 이동
 			// 이전에 열려 있던 창은 닫게 하고 싶은데 방법을 모름
 			
@@ -136,6 +78,12 @@ public class PayCheckController implements Initializable, Receivable {
 						// Platform.exit();		// 바꿔야 확인 눌렀을때 안사라짐
 						// 예매 취소를 눌러서 DB에 delete table where = ? 가 작동되게 해야 함
 						// 현재창 
+						TicketVO vo = Main.reservTicket;
+						String regReserv = "2|2|" + vo.getUserID() + "," + vo.getMusical() + "," + vo.getSeatNum() + ","
+								+ vo.getPay() + "," + vo.getDate() + "," + vo.getTime();
+						System.out.println(regReserv);
+						Main.thread.sendData(regReserv);
+						
 						Stage now = (Stage)btnCancel.getScene().getWindow();
 						now.close();
 						payStage.close();
