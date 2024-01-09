@@ -164,9 +164,7 @@ public class PayController implements Initializable, Receivable {
 				}else {
 					System.out.println("실패 거절창");
 				}
-				
 			} // 필수 약관 if 문 끝
-			
 		}); // 결제하기 이벤트 끝 
 		
 		// 전자금융거래 기본약관 상세보기 하이퍼링크 

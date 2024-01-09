@@ -2,9 +2,6 @@ package reservation;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -22,8 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.MenuButton;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -47,9 +43,9 @@ public class ReservationController implements Initializable, Receivable {
 	@FXML
 	private TextField selectS;
 	@FXML
-	private MenuButton selectDate;
+	private Label selectDate;
 	@FXML
-	private ComboBox<String> selectTime;
+	private Label selectTime;
 
 	public static ObservableList<SeatVO> list;
 	ObservableList<String> ttime; // TableView
@@ -62,68 +58,33 @@ public class ReservationController implements Initializable, Receivable {
 	public Button selectedButton;
 	public String btnStyle;
 	
-	PreparedStatement ps = null;
-	ResultSet rs = null;
-	Connection conn = null;
-	
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Main.thread.reservationController = this;
+		selectDate.setText(Main.castVO.getDate());
+		selectTime.setText(Main.castVO.getTime());
 
-		// 예매하기 버튼 클릭시 창 띄우기		파일명 넣기 null 자리에 "pay.fxml"+fxml 파일에서 컨트롤러 확인
+		// 예매하기 버튼 클릭시 창 띄우기 파일명 넣기 null 자리에 "pay.fxml"+fxml 파일에서 컨트롤러 확인
 		btnSc.setOnAction((e) -> {
-			if (selectS.equals(null) && selectDate.equals(null) && selectTime.equals(null))
+			if(Main.reservTicket == null) {
+				alertWarning("좌석을 먼저 선택해주세요.");
 				return;
+			}
+			
 			try {
 				Stage stage = new Stage();
 				Parent root = FXMLLoader.load(getClass().getResource("/pay/PayMain.fxml"));
 				stage.setScene(new Scene(root));
 				stage.setTitle("결제하기");
 				stage.show();
+				
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-
 		});
 
 
-// 날짜 선택
-		for (MenuItem n : selectDate.getItems()) {
-			n.setOnAction((e) -> {
-				System.out.println(e);
-				String date = n.getText();
-				if (date == null) {
-					Alert alert = new Alert(AlertType.WARNING);
-					alert.setContentText("날짜를 선택해주세요");
-					alert.show();
-					return;
-				}
-				System.out.println(date);
-			});
-		}
-
-// 시간 선택
-		ttime = FXCollections.observableArrayList("14시30분", "19시30분");
-		selectTime.setItems(ttime);
-
-		selectTime.valueProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				System.out.println(newValue);
-			}
-		});
-
-		selectTime.setOnAction((e) -> {
-			String time = selectTime.toString();
-			if (time == null) {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setContentText("시간을 선택해주세요");
-				alert.show();
-				return;
-			}
-		});
-// 좌석 정보 노출
+		// 좌석 정보 노출
 		ObservableList<SeatVO> list = FXCollections.observableArrayList();
 		SeatVO vips = new SeatVO("VIP 좌석", "50석", "100000원");
 		SeatVO order = new SeatVO("일반좌석", "50석", "30000원");
@@ -139,6 +100,7 @@ public class ReservationController implements Initializable, Receivable {
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 		tableView.setItems(list);
 
+		setSeats();
 	} // end initialize
 
 	
@@ -149,17 +111,13 @@ public class ReservationController implements Initializable, Receivable {
 	public void receiveData(String message) {
 		// 예약 좌석 목록 
 		setSeats();
-		
-		
 		// 좌석정보 전달하여 중복체크하고 결제로 넘어가기		
 		String chars[] = selectS.getText().split(" ");
 		String seat = chars[2];
 		for(int i = 1; i<11; i++) {
 			/*
 			if() {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setContentText("다른 자리를 선택해주세요.");
-				alert.show();
+				alertWarning("다른 자리를 선택해주세요.");
 				return;
 			}
 			*/
@@ -195,7 +153,6 @@ public class ReservationController implements Initializable, Receivable {
 				hbox.getChildren().add(b);
 				// 버튼 클릭 event
 				b.setOnAction(new EventHandler<ActionEvent>() {
-
 					@Override
 					public void handle(ActionEvent arg0) {
 						reservSeat = b.getText();
@@ -211,18 +168,37 @@ public class ReservationController implements Initializable, Receivable {
 						String[] ticket = receiveData.split("\\|");
 						String code = ticket[0];
 
+						Main.reservTicket = new TicketVO();
+						Main.reservTicket.setUserID(Main.loginMember.getUserID());
+						Main.reservTicket.setMusical("레미제라블");
+						Main.reservTicket.setDate(Main.castVO.getDate());
+						Main.reservTicket.setTime(Main.castVO.getTime());
+						Main.reservTicket.setSeatNum(reservSeat);
 						if (code.equals("A") || code.equals("B") || code.equals("C") || code.equals("D") || code.equals("E")) {
 							System.out.println("10만원");
 							selectS.setText("VIP 좌석      " + reservSeat + "      10만원");
+							Main.reservTicket.setPay(100000);
 						} else {
 							selectS.setText("일반좌석       " + reservSeat + "      3만원");
 							System.out.println("3만원");
+							Main.reservTicket.setPay(30000);
 						}
-					}
-				});
+						System.out.println(Main.reservTicket);
+					} // end handle
+				}); // end action event
 			}
 			btnBox.getChildren().add(hbox);
 		}
+	}
+	
+	
+	// 경고 알림창
+	public void alertWarning(String msg) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setHeaderText(null);
+		alert.setContentText(msg);
+		alert.show();
+		
 	}
 	
 }

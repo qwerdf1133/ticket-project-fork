@@ -2,10 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -17,9 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="910.0" 
-xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="reservation.ReservationController">
+<BorderPane prefHeight="700.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservation.ReservationController">
    <right>
       <VBox alignment="CENTER" prefHeight="600.0" prefWidth="272.0" BorderPane.alignment="CENTER">
          <children>
@@ -69,22 +64,22 @@ fx:controller="reservation.ReservationController">
                   <Font size="24.0" />
                </font>
             </Label>
-            <MenuButton fx:id="selectDate" mnemonicParsing="false" text="날짜 선택">
-              <items>
-                <MenuItem mnemonicParsing="false" text="2024년 1월 10일" />
-                <MenuItem mnemonicParsing="false" text="2024년 1월 11일" />
-                  <MenuItem mnemonicParsing="false" text="2024년 1월 12일" />
-                  <MenuItem mnemonicParsing="false" text="2024년 1월 13일" />
-                  <MenuItem mnemonicParsing="false" text="2024년 1월 14일" />
-                  <MenuItem mnemonicParsing="false" text="2024년 1월 15일" />
-                  <MenuItem mnemonicParsing="false" text="2024년 1월 16일" />
-                  <MenuItem mnemonicParsing="false" text="2024년 1월 17일" />
-              </items>
+            <Label fx:id="selectDate" alignment="CENTER">
                <HBox.margin>
-                  <Insets bottom="10.0" left="50.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
-            </MenuButton>
-            <ComboBox fx:id="selectTime" prefHeight="22.0" prefWidth="110.0" promptText="시간 선택" />
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="selectTime" alignment="CENTER">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
          <padding>
             <Insets top="10.0" />
