@@ -10,32 +10,44 @@
    <children>
    
       <Label layoutX="124.0" layoutY="14.0" text="예매 확인" />
-      <Label fx:id="name" layoutX="120.0" layoutY="58.0" text="userID">
+      <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" layoutX="103.0" layoutY="44.0" text="nickname" textAlignment="CENTER">
       
 		         <font>
 		            <Font size="20.0" />
 		         </font>
 		      </Label>
       
-      <Label layoutX="87.0" layoutY="94.0" text="예매하신 뮤지컬 이름은" />
-      <Label fx:id="musical" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="108.0" text="Musical">
+      <Label layoutX="62.0" layoutY="81.0" text="예매하신 뮤지컬 이름은">
+         <font>
+            <Font name="Yj TEUNTEUN Bold" size="16.0" />
+         </font></Label>
+      <Label fx:id="musical" alignment="CENTER" contentDisplay="CENTER" layoutX="113.0" layoutY="100.0" text="Musical" textAlignment="CENTER">
       
 		         <font>
 		            <Font size="20.0" />
 		         </font>
 		      </Label>
       
-      <Label layoutX="134.0" layoutY="150.0" text="좌석은" />
-      <Label fx:id="seat" layoutX="132.0" layoutY="164.0" text="n - x">
+      <Label layoutX="125.0" layoutY="141.0" text="좌석은">
+         <font>
+            <Font name="Yj TEUNTEUN Bold" size="16.0" />
+         </font></Label>
+      <Label fx:id="seat" contentDisplay="CENTER" layoutX="132.0" layoutY="160.0" text="Seat" textAlignment="CENTER">
       
 		         <font>
 		            <Font size="20.0" />
 		         </font>
 		      </Label>
 		      
-      <Label layoutX="208.0" layoutY="63.0" text="님" />
-      <Label layoutX="133.0" layoutY="208.0" text="날짜는" textAlignment="CENTER" />
-      <Label fx:id="date" alignment="CENTER" layoutX="88.0" layoutY="222.0" text="YYYY-mm-DD">
+      <Label layoutX="206.0" layoutY="46.0" text="님">
+         <font>
+            <Font name="Yj TEUNTEUN Bold" size="16.0" />
+         </font></Label>
+      <Label layoutX="125.0" layoutY="200.0" text="날짜는" textAlignment="CENTER">
+         <font>
+            <Font name="Yj TEUNTEUN Bold" size="16.0" />
+         </font></Label>
+      <Label fx:id="date" alignment="CENTER" contentDisplay="CENTER" layoutX="52.0" layoutY="219.0" text="yyyy-mm-dd / xx:yy:zz" textAlignment="CENTER">
       
 		         <font>
 		            <Font size="20.0" />

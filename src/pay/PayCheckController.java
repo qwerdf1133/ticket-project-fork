@@ -44,12 +44,9 @@ public class PayCheckController implements Initializable, Receivable {
 		name.setText(Main.reservTicket.getUserID());
 		seat.setText(Main.reservTicket.getSeatNum());
 		musical.setText(Main.reservTicket.getMusical());
-		date.setText(Main.reservTicket.getDate());
+		date.setText(Main.reservTicket.getDate()+" / "+(Main.reservTicket.getTime()));
 		
-		
-			// 확인 버튼으로 메인화면 이동
-			// 이전에 열려 있던 창은 닫게 하고 싶은데 방법을 모름
-			
+			// 확인 버튼을 누르면 메인 화면만 남고 나머지는 없어짐
 			btnEnd.setOnAction((e)->{
 				Stage end = (Stage)btnEnd.getScene().getWindow();
 				end.close();
@@ -58,7 +55,7 @@ public class PayCheckController implements Initializable, Receivable {
 				reservStage.close();
 			});
 				
-			
+			// 예매 취소 버튼을 누르면 알림창이 뜨면서 정말 취소 할 것이냐고 물어봄
 			btnCancel.setOnAction((e)->{
 				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 				alert.setTitle("예매 취소");
@@ -66,7 +63,7 @@ public class PayCheckController implements Initializable, Receivable {
 				alert.setContentText("이전에 예매하신 내역은 모두 삭제됩니다.\n저희 열심히 준비했는데 ㅠㅠ");
 				Optional<ButtonType> result = alert.showAndWait();
 				
-				
+				// 예매 취소를 진행 할 경우 알림이 뜨며 예매 취소가 됨.
 				if(result.get() == ButtonType.OK) {
 					System.out.println("예매 취소");
 					Alert alert1 = new Alert(Alert.AlertType.WARNING);
@@ -75,23 +72,20 @@ public class PayCheckController implements Initializable, Receivable {
 					alert1.setContentText("다음에 다시 만나요 ㅠㅠ");
 					Optional<ButtonType> result1 = alert1.showAndWait();
 					if(result1.get() == ButtonType.OK) {
-						// Platform.exit();		// 바꿔야 확인 눌렀을때 안사라짐
-						// 예매 취소를 눌러서 DB에 delete table where = ? 가 작동되게 해야 함
-						// 현재창 
+						
+						// 예약 취소 화면에서 예매했던 구매자의 데이터를 보냄
 						TicketVO vo = Main.reservTicket;
 						String regReserv = "2|2|" + vo.getUserID() + "," + vo.getMusical() + "," + vo.getSeatNum() + ","
 								+ vo.getPay() + "," + vo.getDate() + "," + vo.getTime();
 						System.out.println(regReserv);
 						Main.thread.sendData(regReserv);
 						
+						// 데이터를 보낸 후 메인 화면 제외 모든 창이 꺼짐
 						Stage now = (Stage)btnCancel.getScene().getWindow();
 						now.close();
 						payStage.close();
 						payDoneStage.close();
 						reservStage.close();
-						
-						// 다시 메인 포스터 화면으로 이동
-						// 원래 있던 창을 다시 끄고 싶은데 방법을 모름
 						
 					}
 					
