@@ -1,31 +1,24 @@
 package pay;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.stage.Modality;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import main.Main;
 import main.Receivable;
 import reservation.TicketVO;
 
 public class PayCheckController implements Initializable, Receivable {
 
-	@FXML Label name, date, musical, seat;
+	@FXML TextField name, date, musical, seat;
 	@FXML Button btnEnd, btnCancel;
 
 	Connection conn = null;
@@ -45,6 +38,12 @@ public class PayCheckController implements Initializable, Receivable {
 		seat.setText(Main.reservTicket.getSeatNum());
 		musical.setText(Main.reservTicket.getMusical());
 		date.setText(Main.reservTicket.getDate()+" / "+(Main.reservTicket.getTime()));
+		
+		// 텍스트필드 수정 불가능
+		name.setEditable(false);
+		seat.setEditable(false);
+		musical.setEditable(false);
+		date.setEditable(false);
 		
 			// 확인 버튼을 누르면 메인 화면만 남고 나머지는 없어짐
 			btnEnd.setOnAction((e)->{
