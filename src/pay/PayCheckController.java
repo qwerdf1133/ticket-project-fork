@@ -33,10 +33,12 @@ public class PayCheckController implements Initializable, Receivable {
 	private Stage payStage;
 	// payDoneController Stage
 	private Stage payDoneStage;
+	// 좌석 선택 스테이지 
+	private Stage reservStage;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Main.thread.payCheckBontroller = this;
+		Main.thread.payCheckController = this;
 		
 		// MySQL 연결
 //			try {
@@ -105,25 +107,15 @@ public class PayCheckController implements Initializable, Receivable {
 			
 			// 확인 버튼으로 메인화면 이동
 			// 이전에 열려 있던 창은 닫게 하고 싶은데 방법을 모름
-			btnEnd.setOnAction((e)->{
-
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/post/Post.fxml"));
-			Parent root;
-			Stage stage;
 			
-				try {
-					root = (Parent) fxmlLoader.load();
-					stage = new Stage();
-					stage.initModality(Modality.APPLICATION_MODAL); // 팝업처럼 화면이 뜸
-					stage.initStyle(StageStyle.UTILITY);		
-					stage.setTitle("레미제라블");
-					stage.setScene(new Scene(root));
-					stage.show();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-					return;
-				};
+			btnEnd.setOnAction((e)->{
+				Stage end = (Stage)btnEnd.getScene().getWindow();
+				end.close();
+				payStage.close();
+				payDoneStage.close();
+				reservStage.close();
 			});
+				
 			
 			btnCancel.setOnAction((e)->{
 				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -148,7 +140,7 @@ public class PayCheckController implements Initializable, Receivable {
 						now.close();
 						payStage.close();
 						payDoneStage.close();
-						
+						reservStage.close();
 						
 						// 다시 메인 포스터 화면으로 이동
 						// 원래 있던 창을 다시 끄고 싶은데 방법을 모름
@@ -170,10 +162,10 @@ public class PayCheckController implements Initializable, Receivable {
 		
 	}
 
-	public void setStage(Stage payStage, Stage payDoneStage) {
+	public void setStage(Stage payStage, Stage payDoneStage, Stage reservStage) {
 		this.payStage = payStage;
 		this.payDoneStage = payDoneStage;
-		
+		this.reservStage = reservStage;
 	}
 	
 }

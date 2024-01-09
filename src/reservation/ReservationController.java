@@ -26,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.Main;
 import main.Receivable;
@@ -75,9 +76,12 @@ public class ReservationController implements Initializable, Receivable {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/pay/PayMain.fxml"));
 				Parent root = loader.load();
 				PayController controller = loader.getController();
-				controller.setStage(stage);
+				
+				controller.setStage(stage, (Stage)btnSc.getScene().getWindow());
 				stage.setScene(new Scene(root));
 				stage.setTitle("결제하기");
+				stage.initOwner(btnSc.getScene().getWindow());
+				stage.initModality(Modality.WINDOW_MODAL);
 				stage.show();
 				
 				// 창 닫기 눌렀을 때 나오는 확인 알림창
@@ -146,7 +150,7 @@ public class ReservationController implements Initializable, Receivable {
 			for (int j = 1; j < 11; j++) {
 				int val = 64 + i;
 				char value = (char) val;
-				Button b = new Button(value + "|" + j + "");
+				Button b = new Button(value + "-" + j + "");
 				b.setMaxWidth(Double.MAX_VALUE);
 				b.setStyle("-fx-border-color:black");
 				HBox.setHgrow(b, Priority.ALWAYS);
@@ -175,12 +179,12 @@ public class ReservationController implements Initializable, Receivable {
 						btnStyle = b.getStyle();
 						b.setStyle("-fx-background-color:gray");
 						b.setDefaultButton(false);
-						String[] ticket = receiveData.split("\\|");
+						String[] ticket = receiveData.split("\\-");
 						String code = ticket[0];
 
 						Main.reservTicket = new TicketVO();
 						Main.reservTicket.setUserID(Main.loginMember.getUserID());
-						Main.reservTicket.setMusical("레미제라블");
+						Main.reservTicket.setMusical(Main.castVO.getMusicalNa());
 						Main.reservTicket.setDate(Main.castVO.getDate());
 						Main.reservTicket.setTime(Main.castVO.getTime());
 						Main.reservTicket.setSeatNum(reservSeat);
