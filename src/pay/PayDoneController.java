@@ -46,7 +46,7 @@ public class PayDoneController implements Initializable, Receivable  {
 				stage = new Stage();
 				stage.initModality(Modality.APPLICATION_MODAL); // 팝업처럼 화면이 뜸
 				stage.initStyle(StageStyle.UTILITY);		
-				stage.setTitle("레미제라블 예매 확인");
+				stage.setTitle("예매 확인");
 				stage.setScene(new Scene(root1));
 				PayCheckController controller = fxmlLoader.getController();
 				controller.setStage(this.payStage, this.payDoneStage, this.reservStage);

@@ -34,6 +34,7 @@ public class PayCheckController implements Initializable, Receivable {
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.thread.payCheckController = this;
 		
+		// 텍스트필드에 데이터 값 입력
 		name.setText(Main.reservTicket.getUserID());
 		seat.setText(Main.reservTicket.getSeatNum());
 		musical.setText(Main.reservTicket.getMusical());
@@ -73,6 +74,7 @@ public class PayCheckController implements Initializable, Receivable {
 					if(result1.get() == ButtonType.OK) {
 						
 						// 예약 취소 화면에서 예매했던 구매자의 데이터를 보냄
+						// 데이터를 보낸 후 데이터 삭제
 						TicketVO vo = Main.reservTicket;
 						String regReserv = "2|2|" + vo.getUserID() + "," + vo.getMusical() + "," + vo.getSeatNum() + ","
 								+ vo.getPay() + "," + vo.getDate() + "," + vo.getTime();
