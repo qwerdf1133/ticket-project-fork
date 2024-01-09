@@ -85,6 +85,13 @@ public class PayController implements Initializable, Receivable {
 		musical.setText(Main.reservTicket.getMusical());
 		date.setText(Main.reservTicket.getDate());
 		time.setText(Main.reservTicket.getTime());
+		
+		// 텍스트필드 수정 불가능
+		price.setEditable(false);
+		seat.setEditable(false);
+		musical.setEditable(false);
+		date.setEditable(false);
+		time.setEditable(false);
 
 		// 결제하기 버튼을 눌렀을 때 발생하는 이벤트
 		pay.setOnAction((e) -> {
