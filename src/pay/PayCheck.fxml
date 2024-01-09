@@ -10,7 +10,7 @@
    <children>
    
       <Label layoutX="124.0" layoutY="14.0" text="예매 확인" />
-      <Label fx:id="name" layoutX="120.0" layoutY="58.0" text="홍길동">
+      <Label fx:id="name" layoutX="120.0" layoutY="58.0" text="userID">
       
 		         <font>
 		            <Font size="20.0" />
@@ -18,15 +18,15 @@
 		      </Label>
       
       <Label layoutX="87.0" layoutY="94.0" text="예매하신 뮤지컬 이름은" />
-      <Label fx:id="musical" layoutX="93.0" layoutY="108.0" text="LesMiserable">
+      <Label fx:id="musical" alignment="CENTER" contentDisplay="CENTER" layoutX="116.0" layoutY="108.0" text="Musical">
       
 		         <font>
 		            <Font size="20.0" />
 		         </font>
 		      </Label>
       
-      <Label layoutX="133.0" layoutY="150.0" text="좌석은" />
-      <Label fx:id="seat" layoutX="135.0" layoutY="164.0" text="A12">
+      <Label layoutX="134.0" layoutY="150.0" text="좌석은" />
+      <Label fx:id="seat" layoutX="132.0" layoutY="164.0" text="n - x">
       
 		         <font>
 		            <Font size="20.0" />
@@ -34,8 +34,8 @@
 		      </Label>
 		      
       <Label layoutX="208.0" layoutY="63.0" text="님" />
-      <Label layoutX="133.0" layoutY="208.0" text="날짜는" />
-      <Label fx:id="date" layoutX="103.0" layoutY="222.0" text="2024-01-06">
+      <Label layoutX="133.0" layoutY="208.0" text="날짜는" textAlignment="CENTER" />
+      <Label fx:id="date" alignment="CENTER" layoutX="88.0" layoutY="222.0" text="YYYY-mm-DD">
       
 		         <font>
 		            <Font size="20.0" />
