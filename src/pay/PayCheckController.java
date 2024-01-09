@@ -14,9 +14,15 @@ import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import main.Main;
 import main.Receivable;
 
@@ -97,10 +103,25 @@ public class PayCheckController implements Initializable, Receivable {
 			
 			// 확인 버튼으로 모든 창 닫기
 			btnEnd.setOnAction((e)->{
-//				System.exit(0);
-				Platform.exit();
+			
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/post/Post.fxml"));
+			Parent root1;
+			Stage stage;
+			
+				try {
+					root1 = (Parent) fxmlLoader.load();
+					stage = new Stage();
+					stage.initModality(Modality.APPLICATION_MODAL); // 팝업처럼 화면이 뜸
+					stage.initStyle(StageStyle.UTILITY);		
+					stage.setTitle("레미제라블");
+					stage.setScene(new Scene(root1));
+					stage.show();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+					return;
+				};
 			});
-	
+			
 	}
 
 	@Override
