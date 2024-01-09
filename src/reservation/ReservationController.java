@@ -17,8 +17,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -45,7 +47,8 @@ public class ReservationController implements Initializable, Receivable {
 	@FXML
 	private Label selectDate;
 	@FXML
-	private Label selectTime;
+
+	private Label selectTime, selectMusical;
 
 	public static ObservableList<SeatVO> list;
 	ObservableList<String> ttime; // TableView
@@ -63,6 +66,11 @@ public class ReservationController implements Initializable, Receivable {
 		Main.thread.reservationController = this;
 		selectDate.setText(Main.castVO.getDate());
 		selectTime.setText(Main.castVO.getTime());
+
+// 뮤지컬명 추가용
+//		selectMusical.setText(Main.castVO.getMusicalNa());
+		
+		
 
 		// 예매하기 버튼 클릭시 창 띄우기 파일명 넣기 null 자리에 "pay.fxml"+fxml 파일에서 컨트롤러 확인
 		btnSc.setOnAction((e) -> {
@@ -84,6 +92,7 @@ public class ReservationController implements Initializable, Receivable {
 				stage.initModality(Modality.WINDOW_MODAL);
 				stage.show();
 				
+
 				// 창 닫기 눌렀을 때 나오는 확인 알림창
 				// 확인을 누르면 창이 결제 취소, 취소를 누르면 결제 진행
 				// 근데 화면이 뒤로 숨어요
@@ -91,7 +100,7 @@ public class ReservationController implements Initializable, Receivable {
 					event.consume();
 					Cancel(stage);
 				});
-				
+
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -100,17 +109,15 @@ public class ReservationController implements Initializable, Receivable {
 
 		// 좌석 정보 노출
 		ObservableList<SeatVO> list = FXCollections.observableArrayList();
-		SeatVO vips = new SeatVO("VIP 좌석", "50석", "100000원");
-		SeatVO order = new SeatVO("일반좌석", "50석", "30000원");
+		SeatVO vips = new SeatVO("VIP 좌석", "100000원");
+		SeatVO order = new SeatVO("일반좌석", "30000원");
 		list.add(vips);
 		list.add(order);
-
+// 1/9 잔여좌석 삭제
 		ObservableList<TableColumn<SeatVO, ?>> columnList = tableView.getColumns();
 		TableColumn<SeatVO, ?> gradeColumn = columnList.get(0);
 		TableColumn<SeatVO, ?> priceColumn = columnList.get(1);
-		TableColumn<SeatVO, ?> charsColumn = columnList.get(2);
 		gradeColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-		charsColumn.setCellValueFactory(new PropertyValueFactory<>("chars"));
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 		tableView.setItems(list);
 
@@ -125,7 +132,7 @@ public class ReservationController implements Initializable, Receivable {
 	public void receiveData(String message) {
 		// 예약 좌석 목록 
 		setSeats();
-		// 좌석정보 전달하여 중복체크하고 결제로 넘어가기		
+
 		String chars[] = selectS.getText().split(" ");
 		String seat = chars[2];
 		for(int i = 1; i<11; i++) {
@@ -136,8 +143,10 @@ public class ReservationController implements Initializable, Receivable {
 			}
 			*/
 		}
+
 		
-	// 날짜 및 시간정보 받아오기
+		
+
 		
 	} // end receiveData
 	
@@ -167,6 +176,7 @@ public class ReservationController implements Initializable, Receivable {
 				hbox.getChildren().add(b);
 				// 버튼 클릭 event
 				b.setOnAction(new EventHandler<ActionEvent>() {
+
 					@Override
 					public void handle(ActionEvent arg0) {
 						reservSeat = b.getText();
@@ -215,6 +225,7 @@ public class ReservationController implements Initializable, Receivable {
 		
 	}
 	
+
 	// PayMain 창 닫기 눌렀을 때 알림창
 	public void Cancel(Stage stage){
 	    Alert alert1 = new Alert(AlertType.CONFIRMATION);
@@ -230,4 +241,5 @@ public class ReservationController implements Initializable, Receivable {
 	    }
 	}
 	
+
 }

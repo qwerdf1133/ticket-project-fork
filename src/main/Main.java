@@ -37,10 +37,6 @@ public class Main extends Application {
 	// 예매할 좌석 정보
 	public static TicketVO reservTicket;
 	
-	// 결제 정보
-	public static PayVO payVO;
-	
-	
 	/**
 	 * 메인에서 사욜할 알림창
 	 */
