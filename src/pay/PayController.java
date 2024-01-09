@@ -76,75 +76,15 @@ public class PayController implements Initializable, Receivable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.thread.payController = this;
+		
+		// PayMain 화면에서 textfield 에 예매자의 구매 정보를 불러옴 
+		
 		DecimalFormat format = new DecimalFormat("#,###");
 		price.setText(format.format(Main.reservTicket.getPay()));
 		seat.setText(Main.reservTicket.getSeatNum());
 		musical.setText(Main.reservTicket.getMusical());
 		date.setText(Main.reservTicket.getDate());
 		time.setText(Main.reservTicket.getTime());
-		// 결제 화면에서 MySQL 연결
-//		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-
-//			Properties prop = new Properties();
-
-		// 임의로 DB를 만들어서 주소를 정함
-//			prop.load(new FileReader("src/pay/DB/mysql.properties")); 
-//			
-//			System.out.println(prop);
-
-//				);
-
-//			conn = DriverManager.getConnection(prop.getProperty("url"),prop);
-//			System.out.println(conn);
-
-		// 임의로 만든 DB에서 선택한 데이터만 찾는 수식
-//			String sql = "" +
-//			 "SELECT name, price, seat, musical, date from pay";
-
-//			PreparedStatement pstmt = conn.prepareStatement(sql);
-		// 아이디가 h 인 사람의 가격, 좌석, 예매한 작품, 날짜 정보 구현
-		// 나중에 로그인 정보와 맞추면 될 듯
-		// 어덯게 하지..?
-//			pstmt.setString(1, "a");	
-
-//			ResultSet rs = pstmt.executeQuery();
-//			if(rs.next()) {
-//				// 가격 정보
-//				String price = rs.getString("price");
-//				// 좌석 정보
-//				String seat = rs.getString("seat");
-//				// 뮤지컬 정보
-//				String musical = rs.getString("musical");
-//				// 날짜 정보
-//				String date = rs.getString("date");
-//				
-//				// 확인용 
-//				System.out.println(price+":"+seat+":"+musical+":"+date);
-//				
-//				
-//			}else {
-//				System.out.println("존재X");
-//			}
-//			
-//			// 텍스트 필드에게 mysql 정보를 불러오기
-//			price.setText(rs.getString("price"));
-//			seat.setText(rs.getString("seat"));
-//			musical.setText(rs.getString("musical"));
-//			date.setText(rs.getString("date"));
-
-//			} catch (FileNotFoundException e) {
-//				System.out.println("file not found");
-
-//			} catch (IOException e) {
-//				System.out.println("ioe err");
-
-//			} catch (SQLException e1) {
-//				System.out.println("sql error");
-//				
-//			} catch (ClassNotFoundException e1) {
-//				System.out.println("class not found");
-//			}
 
 		// 결제하기 버튼을 눌렀을 때 발생하는 이벤트
 		pay.setOnAction((e) -> {
@@ -157,6 +97,7 @@ public class PayController implements Initializable, Receivable {
 						+ vo.getPay() + "," + vo.getDate() + "," + vo.getTime();
 				System.out.println(regReserv);
 				Main.thread.sendData(regReserv);
+				
 				// 체크를 하지 않으면 약관에 동의하지 않았다는 화면이 새로 뜸.
 			} else {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -165,6 +106,7 @@ public class PayController implements Initializable, Receivable {
 				alert.setContentText("모든 필수 약관에 동의 해주세요.\n문제가 발생했을 시 관리자에게 문의 해주세요.");
 				alert.show();
 			} // 필수 약관 if 문 끝
+			
 		}); // 결제하기 이벤트 끝
 
 		// 전자금융거래 기본약관 상세보기 하이퍼링크
@@ -259,7 +201,7 @@ public class PayController implements Initializable, Receivable {
 	}
 
 	// 서버에서 데이터 받아오기
-	// 방법을 모름
+	// 데이터가 불러와지지 않으면 결제 완료 창이 뜨지 않음
 	@Override
 	public void receiveData(String message) {
 		System.out.println("receive pay : " + message);
@@ -283,6 +225,7 @@ public class PayController implements Initializable, Receivable {
 					e1.printStackTrace();
 				}
 			});
+			
 		} else {
 			System.out.println("결제 실패");
 			Platform.runLater(() -> {
