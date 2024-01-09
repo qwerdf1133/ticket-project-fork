@@ -28,6 +28,9 @@ public class PayDoneController implements Initializable, Receivable  {
 	// payDoneController Stage
 	private Stage payDoneStage;
 	
+	// 좌석 예매 창 스테이지
+	private Stage reservStage;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.thread.payDoneController = this;
@@ -46,7 +49,7 @@ public class PayDoneController implements Initializable, Receivable  {
 				stage.setTitle("레미제라블 예매 확인");
 				stage.setScene(new Scene(root1));
 				PayCheckController controller = fxmlLoader.getController();
-				controller.setStage(this.payStage, this.payDoneStage);
+				controller.setStage(this.payStage, this.payDoneStage, this.reservStage);
 				stage.show();
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -58,7 +61,12 @@ public class PayDoneController implements Initializable, Receivable  {
 		// 결제 완료 창의 확인 버튼을 누르면 모든 창이 꺼짐
 		btnExit.setOnAction((e)->{
 //			System.exit(0);
-			Platform.exit();
+			// PayController Stage
+			payStage.close();
+			// payDoneController Stage
+			payDoneStage.close();
+			// 좌석 예매 창 스테이지
+			reservStage.close();
 		});
 	}
 
@@ -68,10 +76,11 @@ public class PayDoneController implements Initializable, Receivable  {
 		
 	}
 
-	public void setStage(Stage payStage, Stage payDoneStage) {
+
+	public void setStage(Stage payStage, Stage payDoneStage, Stage reservStage) {
 		this.payStage = payStage;
 		this.payDoneStage = payDoneStage;
-		
+		this.reservStage = reservStage;
 	}
 	
 

@@ -42,10 +42,10 @@
 		         </font>
 		      </Label>
 		      
-      <Button fx:id="btnEnd" layoutX="45.0" layoutY="264.0" mnemonicParsing="false" prefHeight="30.0" text="메인화면으로 이동" />
+      <Button fx:id="btnEnd" layoutX="93.0" layoutY="264.0" mnemonicParsing="false" prefHeight="30.0" text="확인" />
       
       
       <Separator layoutY="39.0" prefWidth="300.0" />
-      <Button fx:id="btnCancel" layoutX="173.0" layoutY="264.0" mnemonicParsing="false" prefHeight="30.0" text="예매 취소" />
+      <Button fx:id="btnCancel" layoutX="146.0" layoutY="264.0" mnemonicParsing="false" prefHeight="30.0" text="예매 취소" />
    </children>
 </AnchorPane>
