@@ -41,14 +41,14 @@ public class PostController implements Initializable, Receivable {
 	@FXML
 	private TextArea txtEX;
 	@FXML
-	private Button btnRe, btnBMonth, // 이전달 버튼
+	private Button btnRe, // 예매하기
+			btnBMonth, // 이전달 버튼
 			btnToday, // 이번달 버튼
-			btnNMonth; // 다음달 버튼
+			btnNMonth, // 다음달 버튼
+			btnCk; // 예약확인
 
 	@FXML
 	private TableView<CastVO> tableView;
-
-
 
 	public static ObservableList<CastVO> list;
 
@@ -159,7 +159,7 @@ public class PostController implements Initializable, Receivable {
 					// 일요일 색상 지정
 					if (day.getDayOfWeek().getValue() == 7) {
 						btn.setStyle("-fx-text-fill:red; -fx-background-color:#FFF2E6; -fx-background-radius:45;");
-						
+
 						// 토요일 색상 지정
 					} else if (day.getDayOfWeek().getValue() == 6) {
 						btn.setStyle("-fx-text-fill:blue; -fx-background-color:#FFF2E6; -fx-background-radius:45;");
@@ -205,7 +205,6 @@ public class PostController implements Initializable, Receivable {
 		// 오늘 날짜
 		date = LocalDate.now();
 		now = LocalDate.now();
-	
 
 		// 리스트에 공연 시간 안내
 		main.Main.thread.sendData("3|0|" + now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
@@ -232,27 +231,28 @@ public class PostController implements Initializable, Receivable {
 			// tc.setPrefWidth(double value);
 
 			tableView.getColumns().add(tc);
-			
+
 		}
 		tableView.setItems(list);
-		
-		tableView.getSelectionModel().selectedItemProperty().addListener((t,o,n)->{
-			Main.castVO = n;
-			System.out.println(Main.castVO+"--------");
-		});;
 
-		// 예매하기 버튼 클릭시 로그인 화면 이동
+		tableView.getSelectionModel().selectedItemProperty().addListener((t, o, n) -> {
+			Main.castVO = n;
+			System.out.println(Main.castVO + "--------");
+		});
+		;
+
+		// 예매하기 버튼 클릭시 화면 이동
 		btnRe.setOnAction(e -> {
 			try {
 				Stage stage = new Stage();
 				// 기존창에 포커스 주지 않음
 				stage.initModality(Modality.APPLICATION_MODAL);
-				if(Main.loginMember == null){
+				if (Main.loginMember == null) {
 					Parent root = FXMLLoader.load(getClass().getResource("/member/Login.fxml"));
 					stage.setScene(new Scene(root));
 					stage.setTitle("로그인 화면");
 					stage.show();
-				} else if(Main.castVO == null){
+				} else if (Main.castVO == null) {
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setHeaderText("예매하실 날짜와 시간을 먼저 선택해주세요.");
 					alert.showAndWait();
@@ -262,14 +262,36 @@ public class PostController implements Initializable, Receivable {
 					stage.setScene(new Scene(root));
 					stage.setTitle("예약하기");
 					stage.show();
-					
+
 				}
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 		});
+
+		// 예매확인 버튼 클릭시 화면 이동
+		btnCk.setOnAction(e -> {
+			try {
+				Stage stage = new Stage();
+				stage.initModality(Modality.APPLICATION_MODAL);
+				if (Main.loginMember == null) {
+					Parent root = FXMLLoader.load(getClass().getResource("/member/Login.fxml"));
+					stage.setScene(new Scene(root));
+					stage.setTitle("로그인 화면");
+				} else {
+					Parent root;
+					root = FXMLLoader.load(getClass().getResource("/pay/Paycheck.fxml"));
+					stage.setScene(new Scene(root));
+					stage.setTitle("예매확인");
+				}
+				stage.show();
+
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		});
 	}
-	
+
 	/**
 	 * server 에서 mainThread도 전달된 data를 컨트롤러에 전달
 	 */
@@ -279,45 +301,38 @@ public class PostController implements Initializable, Receivable {
 		System.out.println("PostController receive Data: " + message);
 		list.clear();
 		tableView.refresh();
-		
+
 		String[] row = message.split("\\|");
 		String firstOrder = row[0]; // == 3
 		// 3| == Post
-		String secondOrder = row[1]; 
+		String secondOrder = row[1];
 		// 3|0 == musicalInfo
 		// 3|0|0 == 뮤지컬 정보 있음
 		// 3|0|1 == 뮤지컬 정보 없음.
-		
+
 		// 추가 기능
 		// 3|1 ...
-		if(secondOrder.equals("0")){
+		if (secondOrder.equals("0")) {
 			String thirdOrder = row[2];
 			// 3|0 == musicalInfo
-			if(thirdOrder.equals("0")) {
+			if (thirdOrder.equals("0")) {
 				// 뮤지컬 정보 있음 tableView에 출력
 				// 3|0|0| ~~~~~~~ 뮤지컬 목록 나열
 				// 3|0|0|2!2024-01-08!23:11:10!한글2!^3!2024-01-08!23:23:10!한글3!^
 				String musicalList = row[3];
-				
-				for(String data : musicalList.split("\\^")) {
+
+				for (String data : musicalList.split("\\^")) {
 					System.out.println(data);
 					if (data.equals("")) {
 						continue;
 					}
 					String[] castData = data.split("\\!");
-					list.add(new CastVO(Integer.parseInt(castData[0]), castData[1], castData[2], castData[3]));
+					list.add(new CastVO(Integer.parseInt(castData[0]), castData[1], castData[2], castData[3], castData[4]));
 				}
 			} // else {// 해당 되는 날짜에 뮤지컬 정보 없음.} // tableView에 목록 미출력
-		}else if(secondOrder.equals("1")) {
+		} else if (secondOrder.equals("1")) {
 			// 추가 기능...
 		}
 	}
 
 }
-
-
-
-
-
-
-
