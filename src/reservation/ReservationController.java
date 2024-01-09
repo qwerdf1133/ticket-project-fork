@@ -72,7 +72,7 @@ public class ReservationController implements Initializable, Receivable {
 			
 			try {
 				Stage stage = new Stage();
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/pay/PayMain.fxml");
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/pay/PayMain.fxml"));
 				Parent root = loader.load();
 				PayController controller = loader.getController();
 				controller.setStage(stage);
