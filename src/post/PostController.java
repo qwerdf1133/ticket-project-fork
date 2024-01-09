@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -277,6 +278,10 @@ public class PostController implements Initializable, Receivable {
 					Parent root = FXMLLoader.load(getClass().getResource("/member/Login.fxml"));
 					stage.setScene(new Scene(root));
 					stage.setTitle("로그인 화면");
+					
+					// 화면 끄는 창 만들기
+					// Stage postStage = (Stage)btnRe.getScene().getWindow();
+					// postStage.close();				
 				} else {
 					Parent root;
 					root = FXMLLoader.load(getClass().getResource("/pay/Paycheck.fxml"));
