@@ -105,7 +105,6 @@ public class PayCheckController implements Initializable, Receivable {
 	@Override
 	public void receiveData(String message) {
 		
-		
 	}
 
 	public void setStage(Stage payStage, Stage payDoneStage, Stage reservStage) {

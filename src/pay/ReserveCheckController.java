@@ -111,7 +111,7 @@ public class ReserveCheckController implements Initializable, Receivable {
 			Stage now = (Stage) btnCk.getScene().getWindow();
 			now.close();
 		});
-
+		
 	}
 
 	@Override
