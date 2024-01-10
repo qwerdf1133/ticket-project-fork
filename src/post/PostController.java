@@ -161,13 +161,14 @@ public class PostController implements Initializable, Receivable {
 					if (day.getDayOfWeek().getValue() == 7) {
 						btn.setStyle("-fx-text-fill:red; -fx-background-color:#FFF2E6; -fx-background-radius:45;");
 
-					// 토요일 색상 지정
+						// 토요일 색상 지정
 					} else if (day.getDayOfWeek().getValue() == 6) {
 						btn.setStyle("-fx-text-fill:blue; -fx-background-color:#FFF2E6; -fx-background-radius:45;");
-					
-					// 현재 날짜 색상 지정	
-					} else if(day.equals(now)) {
-						btn.setStyle("-fx-text-fill:#47C83E; -fx-font-weight:bolder; -fx-background-color:#FFF2E6; -fx-background-radius:45;");
+
+						// 현재 날짜 색상 지정
+					} else if (day.equals(now)) {
+						btn.setStyle(
+								"-fx-text-fill:#47C83E; -fx-font-weight:bolder; -fx-background-color:#FFF2E6; -fx-background-radius:45;");
 					}
 
 					System.out.print(" day : " + day.getDayOfMonth());
@@ -252,22 +253,15 @@ public class PostController implements Initializable, Receivable {
 				Stage stage = new Stage();
 				// 기존창에 포커스 주지 않음
 				stage.initModality(Modality.APPLICATION_MODAL);
-				if (Main.loginMember == null) {
-					Parent root = FXMLLoader.load(getClass().getResource("/member/Login.fxml"));
-					stage.setScene(new Scene(root));
-					stage.setTitle("로그인 화면");
-					stage.show();
-				} else if (Main.castVO == null) {
+				if (Main.castVO == null) {
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setHeaderText("예매하실 날짜와 시간을 먼저 선택해주세요.");
 					alert.showAndWait();
 				} else {
-					Parent root;
-					root = FXMLLoader.load(getClass().getResource("/reservation/Reservation.fxml"));
+					Parent root = FXMLLoader.load(getClass().getResource("/reservation/Reservation.fxml"));
 					stage.setScene(new Scene(root));
-					stage.setTitle("예약하기");
+					stage.setTitle("좌석 선택");
 					stage.show();
-
 				}
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -279,20 +273,12 @@ public class PostController implements Initializable, Receivable {
 			try {
 				Stage stage = new Stage();
 				stage.initModality(Modality.APPLICATION_MODAL);
-				if (Main.loginMember == null) {
-					Parent root = FXMLLoader.load(getClass().getResource("/member/Login.fxml"));
-					stage.setScene(new Scene(root));
-					stage.setTitle("로그인 화면");
-					
-					// 화면 끄는 창 만들기
-					// Stage postStage = (Stage)btnRe.getScene().getWindow();
-					// postStage.close();				
-				} else {
-					Parent root;
-					root = FXMLLoader.load(getClass().getResource("/pay/Paycheck.fxml"));
-					stage.setScene(new Scene(root));
-					stage.setTitle("예매확인");
-				}
+
+				Parent root;
+				root = FXMLLoader.load(getClass().getResource("/pay/PayCheck.fxml"));
+				stage.setScene(new Scene(root));
+				stage.setTitle("예매확인");
+
 				stage.show();
 
 			} catch (IOException e1) {
@@ -336,7 +322,8 @@ public class PostController implements Initializable, Receivable {
 						continue;
 					}
 					String[] castData = data.split("\\!");
-					list.add(new CastVO(Integer.parseInt(castData[0]), castData[1], castData[2], castData[3], castData[4]));
+					list.add(new CastVO(Integer.parseInt(castData[0]), castData[1], castData[2], castData[3],
+							castData[4]));
 				}
 			} // else {// 해당 되는 날짜에 뮤지컬 정보 없음.} // tableView에 목록 미출력
 		} else if (secondOrder.equals("1")) {

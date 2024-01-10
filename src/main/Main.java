@@ -5,13 +5,12 @@ import java.net.Socket;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import member.MemberVO;
-import pay.PayVO;
 import post.CastVO;
 import reservation.TicketVO;
 
@@ -57,12 +56,13 @@ public class Main extends Application {
 				thread.setDaemon(true);
 				thread.start();
 				
-				HBox root = (HBox) FXMLLoader.load(getClass().getResource("/post/Post.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/member/Login.fxml"));
 				Scene scene = new Scene(root);
 				scene.getStylesheets().add(getClass().getResource("/post/application.css").toExternalForm());
 				primaryStage.setScene(scene);
 				primaryStage.show();
 			}  catch (Exception e ) {
+				e.printStackTrace();
 				alert.close();
 				showAlert("서버와 연결이 되지 않습니다. 다시 시도해 주세요.");
 				primaryStage.close();
