@@ -41,7 +41,7 @@
                <font>
                   <Font size="17.0" />
                </font></TextField>
-            <Button fx:id="btnSc" mnemonicParsing="false" prefHeight="42.0" prefWidth="249.0" text="좌석 선택 완료">
+            <Button fx:id="btnSc" mnemonicParsing="false" prefHeight="42.0" prefWidth="249.0" style="-fx-background-color: f7c5aa" text="좌석 선택 완료">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -86,6 +86,11 @@
                   <Font size="20.0" />
                </font>
             </Label>
+            <Button fx:id="btnBack" mnemonicParsing="false" text="뒤로가기">
+               <HBox.margin>
+                  <Insets left="100.0" />
+               </HBox.margin>
+            </Button>
          </children>
          <padding>
             <Insets top="10.0" />
