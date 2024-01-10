@@ -34,14 +34,16 @@ public class PayCheckController implements Initializable, Receivable {
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.thread.payCheckController = this;
 		
-// 		 Main.thread.sendData("2|2|"+Main.reservTicket.getUserID());
+ 		 Main.thread.sendData("2|1|"+Main.reservTicket.getUserID());
 
 		
 		// 텍스트필드에 데이터 값 입력
- 		name.setText(Main.reservTicket.getUserID());
-		seat.setText(Main.reservTicket.getSeatNum());
-		musical.setText(Main.reservTicket.getMusical());
-		date.setText(Main.reservTicket.getDate()+" / "+(Main.reservTicket.getTime()));
+ 		name.setText(Main.check.getUserID());
+		seat.setText(Main.check.getSeatNum());
+		musical.setText(Main.check.getMusical());
+		date.setText(Main.check.getDate()+" / "+(Main.check.getTime()));
+		
+		
 		
 		// 텍스트필드 수정 불가능
 		name.setEditable(false);

@@ -36,6 +36,8 @@ public class Main extends Application {
 	// 예매할 좌석 정보
 	public static TicketVO reservTicket;
 	
+	public static TicketVO check;
+	
 	/**
 	 * 메인에서 사욜할 알림창
 	 */

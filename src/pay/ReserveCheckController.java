@@ -64,6 +64,14 @@ public class ReserveCheckController implements Initializable, Receivable {
 				
 				if(ticket == null) return;
 				
+				TicketVO vo = Main.check;
+				
+				String regReserv = "2|1|" + vo.getUserID() + "," + vo.getMusical() + "," + vo.getSeatNum() + ","
+						+ vo.getPay() + "," + vo.getDate() + "," + vo.getTime();
+				
+				System.out.println(regReserv);
+			Main.thread.sendData(regReserv);
+				
 				Stage stage = new Stage(StageStyle.UTILITY); 
 				Parent root = null;
 				FXMLLoader loader = null;
