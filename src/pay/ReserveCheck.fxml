@@ -2,84 +2,20 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane 
-fx:controller="ReserveCheckController"
-prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17">
+<AnchorPane prefHeight="370.0" prefWidth="380.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pay.ReserveCheckController">
    <children>
-      <Text layoutX="97.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="예매 내역">
+      <Text layoutX="137.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="예매 내역">
          <font>
             <Font size="25.0" />
          </font>
       </Text>
-      <Separator layoutX="50.0" layoutY="69.0" prefWidth="200.0" />
-      <TextField fx:id="musicalNa2" alignment="CENTER" layoutX="72.0" layoutY="264.0" prefHeight="29.0" prefWidth="161.0" promptText="뮤지컬 이름">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="date2" alignment="CENTER" layoutX="19.0" layoutY="307.0" prefHeight="29.0" prefWidth="161.0" promptText="날짜/시간">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="seat2" alignment="CENTER" layoutX="205.0" layoutY="307.0" prefHeight="29.0" prefWidth="76.0" promptText="좌석">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="result2" alignment="CENTER" layoutX="205.0" layoutY="351.0" prefHeight="29.0" prefWidth="76.0" promptText="예약결과">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <Separator layoutX="57.0" layoutY="240.0" prefWidth="200.0" />
-      <TextField fx:id="musicalNa1" alignment="CENTER" layoutX="67.0" layoutY="107.0" prefHeight="29.0" prefWidth="161.0" promptText="뮤지컬 이름">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="date1" alignment="CENTER" layoutX="14.0" layoutY="150.0" prefHeight="29.0" prefWidth="161.0" promptText="날짜/시간">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="seat1" alignment="CENTER" layoutX="200.0" layoutY="150.0" prefHeight="29.0" prefWidth="76.0" promptText="좌석">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="result1" alignment="CENTER" layoutX="200.0" layoutY="194.0" prefHeight="29.0" prefWidth="76.0" promptText="예약결과">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="musicalNa3" alignment="CENTER" layoutX="72.0" layoutY="424.0" prefHeight="29.0" prefWidth="161.0" promptText="뮤지컬 이름">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="date3" alignment="CENTER" layoutX="19.0" layoutY="467.0" prefHeight="29.0" prefWidth="161.0" promptText="날짜/시간">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="seat3" alignment="CENTER" layoutX="205.0" layoutY="467.0" prefHeight="29.0" prefWidth="76.0" promptText="좌석">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="result3" alignment="CENTER" layoutX="205.0" layoutY="511.0" prefHeight="29.0" prefWidth="76.0" promptText="예약결과">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <Separator layoutX="57.0" layoutY="400.0" prefWidth="200.0" />
-      <Button fx:id="btnCk" layoutX="130.0" layoutY="555.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: f7c5aa; -fx-background-radius: 45;" text="확인" />
+      <Separator layoutX="50.0" layoutY="69.0" prefHeight="3.0" prefWidth="275.0" />
+      <Button fx:id="btnCk" layoutX="165.0" layoutY="321.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: f7c5aa; -fx-background-radius: 45;" text="확인" />
+      <TableView fx:id="tableView" layoutX="20.0" layoutY="100.0" prefHeight="200.0" prefWidth="337.0" />
    </children>
 </AnchorPane>

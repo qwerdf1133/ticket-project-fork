@@ -216,13 +216,6 @@ public class PostController implements Initializable, Receivable {
 		main.Main.thread.sendData("3|0|" + now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		list = FXCollections.observableArrayList();
 //		list = FXCollections.observableArrayList(
-//				new CastVO("2024-01-10", "7시", "광개토대왕, 왕건, 이순신, 안중근, 김유신"),
-//				new CastVO("2024-01-11", "7시", "박혁거세, 세종대왕, 단군왕검, 이순신, 김구"),
-//				new CastVO("2024-01-12", "7시", "고길동, 장보고, 서희, 강감찬, 이황"),
-//				new CastVO("2024-01-13", "7시", "이순신, 장보고, 서희, 광개토대왕, 안중근"),
-//				new CastVO("2024-01-14", "7시", "대조영, 장보고, 서희, 고길동, 이황"),
-//				new CastVO("2024-01-15", "7시", "단군왕검, 장보고, 이순신, 강감찬, 이황"),
-//				new CastVO("2024-01-16", "7시", "대조영, 안중근, 서희, 강감찬, 단군왕검"),
 //				new CastVO("2024-01-17", "7시", "고길동, 장보고, 서희, 광개토대왕, 이황"),
 //			);
 
@@ -275,7 +268,7 @@ public class PostController implements Initializable, Receivable {
 				stage.initModality(Modality.APPLICATION_MODAL);
 
 				Parent root;
-				root = FXMLLoader.load(getClass().getResource("/pay/PayCheck.fxml"));
+				root = FXMLLoader.load(getClass().getResource("/pay/ReserveCheck.fxml"));
 				stage.setScene(new Scene(root));
 				stage.setTitle("예매확인");
 

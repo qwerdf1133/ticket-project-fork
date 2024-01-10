@@ -4,4 +4,5 @@ open module TicketProject {
 	requires java.sql;
 	requires javafx.web;
 	requires javafx.base;
+	requires javafx.graphics;
 }
