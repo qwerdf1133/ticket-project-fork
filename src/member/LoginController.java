@@ -134,6 +134,10 @@ public class LoginController implements Initializable, Receivable {
 			Main.loginMember = new MemberVO(loginMember[0],loginMember[1],loginMember[2],loginMember[3]);
 			
 			Platform.runLater(()->{
+				if(rememberMe.isSelected()) {
+					rememberUserId(Main.loginMember.getUserID());
+				}
+				
 				// 로그인 무대 종료
 				Stage loginStage = (Stage)txtId.getScene().getWindow();
 				loginStage.close();
