@@ -60,7 +60,7 @@ public class ReserveCheckController implements Initializable, Receivable {
 			now.close();
 
 		});
-
+		
 	}
 
 	// 방법을 모름
