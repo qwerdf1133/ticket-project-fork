@@ -14,12 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane 
-prefHeight="700.0" prefWidth="910.0" 
-xmlns="http://javafx.com/javafx/17" 
-xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="reservation.ReservationController">
+<BorderPane prefHeight="700.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservation.ReservationController">
    <right>
       <VBox alignment="CENTER" prefHeight="600.0" prefWidth="272.0" BorderPane.alignment="CENTER">
          <children>
@@ -36,9 +31,8 @@ fx:controller="reservation.ReservationController">
                   <Insets bottom="10.0" />
                </VBox.margin>
                <columns>
-                  <TableColumn prefWidth="75.0" text="좌석등급" />
-                  <TableColumn prefWidth="75.0" text="가격" />
-                  <TableColumn prefWidth="75.0" text="잔여석" />
+                  <TableColumn prefWidth="125.0" text="좌석등급" />
+                  <TableColumn prefWidth="125.0" text="가격" />
                </columns>
             </TableView>
             <Separator prefHeight="3.0" prefWidth="358.0" />
@@ -70,7 +64,7 @@ fx:controller="reservation.ReservationController">
                </font>
             </Label>
 
-            <Label fx:id="selectMusical" textAlignment="CENTER">
+            <Label fx:id="selectMusical" style="-fx-background-color: yellow;" textAlignment="CENTER">
                <font>
                   <Font size="22.0" />
                </font>

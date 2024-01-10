@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -35,6 +36,32 @@ public class MemberController implements Initializable, Receivable {
 		Main.thread.memberController = this;
 		
 		System.out.println("호출시 자동 실행");
+		
+		Platform.runLater(()->{
+			txtId.requestFocus();
+		});
+		
+		txtId.setOnKeyPressed(e->{
+			if(e.getCode() == KeyCode.ENTER) txtPw.requestFocus();
+		});
+		
+		txtPw.setOnKeyPressed(e->{
+			if(e.getCode() == KeyCode.ENTER) txtRe.requestFocus();
+		});
+		
+		txtRe.setOnKeyPressed(e->{
+			if(e.getCode() == KeyCode.ENTER) txtPhone.requestFocus();
+		});
+		
+		txtPhone.setOnKeyPressed(e->{
+			if(e.getCode() == KeyCode.ENTER) {
+				btnJoin.fire();
+			}
+		});
+		
+		
+	
+		
 		
 		btnJoin.setOnAction(e -> join());
 

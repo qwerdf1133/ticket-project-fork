@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -32,7 +33,18 @@ public class LoginController implements Initializable, Receivable {
 		
 		
 		Platform.runLater(() -> {
-			btnLogin.requestFocus();
+			txtId.requestFocus();
+		});
+		
+		//아이디에서 Enter -> 비밀번호 창으로 포커스
+		txtId.setOnKeyPressed(e->{
+			if(e.getCode() == KeyCode.ENTER) txtPw.requestFocus();
+		});
+		
+		txtPw.setOnKeyPressed(e->{
+			if(e.getCode() == KeyCode.ENTER) {
+				btnLogin.fire();
+			}
 		});
 
 		btnLogin.setOnAction(e -> login());
@@ -116,17 +128,17 @@ public class LoginController implements Initializable, Receivable {
 				try {
 					Stage stage = new Stage();
 					stage.initModality(Modality.APPLICATION_MODAL);
-					
+					/*
 					if(Main.castVO == null){
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setHeaderText("예매하실 날짜와 시간을 먼저 선택해주세요.");
 						alert.showAndWait();
 						return;
-					//?	
+						
 					}
-					
+					*/
 					Parent root;
-					root = FXMLLoader.load(getClass().getResource("/reservation/Reservation.fxml"));
+					root = FXMLLoader.load(getClass().getResource("/post/Post.fxml"));
 					stage.setScene(new Scene(root));
 					stage.setTitle("예약하기");
 					stage.show();
