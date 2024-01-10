@@ -63,7 +63,7 @@
       <Label layoutX="124.0" layoutY="315.0" text="약관 동의" />
       <CheckBox fx:id="terms1" layoutX="12.0" layoutY="335.0" mnemonicParsing="false" text="전자금융거래 기본약관 (필수)" />
       <CheckBox fx:id="terms2" layoutX="12.0" layoutY="360.0" mnemonicParsing="false" text="개인정보 수집 및 이용 (필수)" />
-      <CheckBox fx:id="terms3" layoutX="12.0" layoutY="385.0" mnemonicParsing="false" text="레미제라블 이용약관 동의 (필수)" />
+      <CheckBox fx:id="terms3" layoutX="12.0" layoutY="385.0" mnemonicParsing="false" text="뮤지컬 이용약관 동의 (필수)" />
       <CheckBox fx:id="terms4" layoutX="12.0" layoutY="410.0" mnemonicParsing="false" text="마케팅 메일, SMS 수신 동의 (선택)" />
       
        <Button fx:id="pay" layoutX="30.0" layoutY="445.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: f4c5aa; -fx-background-radius: 45; -fx-font-weight: bold;" text="결제하기">

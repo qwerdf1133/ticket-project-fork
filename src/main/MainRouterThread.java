@@ -82,7 +82,8 @@ public class MainRouterThread extends Thread {
 						payCheckController.receiveData(readMessage);
 					}else {
 						// 2|3|...
-						ReserveCheckController.receiveData(readMessage);}
+						ReserveCheckController.receiveData(readMessage);
+					}
 					
 				}else if(order.equals("3")) {
 					// 3|data...
