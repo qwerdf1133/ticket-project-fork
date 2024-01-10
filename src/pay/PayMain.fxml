@@ -9,19 +9,12 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pay.PayController">
 
    <children>
-      <ImageView fitHeight="60.0" fitWidth="122.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/Enterpark.png" />
-         </image>
-      </ImageView>
       <Label layoutX="100.0" layoutY="8.0" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: f7c5aa; -fx-font-weight: bold; -fx-background-radius: 45;" />
       <Label layoutX="118.0" layoutY="14.0" style="-fx-font-weight: bold;" text="결제 화면">
          <font>
