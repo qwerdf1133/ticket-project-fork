@@ -27,6 +27,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -50,6 +52,9 @@ public class ReservationController implements Initializable, Receivable {
 	private Label selectDate;
 	@FXML
 	private Label selectTime, selectMusical;
+	@FXML 
+	private ImageView musicalImg;
+	
 
 	public static ObservableList<SeatVO> list;
 	ObservableList<String> ttime; // TableView
@@ -67,6 +72,25 @@ public class ReservationController implements Initializable, Receivable {
 		selectTime.setText(Main.castVO.getTime());
 		selectMusical.setText(Main.castVO.getMusicalNa());
 		Main.thread.sendData("1|"+Main.castVO.getMusicalNa()+","+Main.castVO.getDate()+","+Main.castVO.getTime());
+
+/*		
+		// 레미제라블
+		Image image = new Image(
+				getClass().getResource("img/las.jpg").toString()
+			);
+		// 노트르담드파리
+		Image image1 = new Image(
+				getClass().getResource("img/PARIS.jpg").toString()
+			);
+		// 레베카
+		Image image2 = new Image(
+				getClass().getResource("img/rebecca.jpg").toString()
+			);
+		
+		musicalImg.setImage(image);
+*/
+		
+		
 		
 // 뒤로가기		
 		btnBack.setOnAction((e)->{
@@ -117,16 +141,20 @@ public class ReservationController implements Initializable, Receivable {
 		ObservableList<SeatVO> list = FXCollections.observableArrayList();
 		SeatVO vips = new SeatVO("VIP 좌석", "100000원");
 		SeatVO order = new SeatVO("일반좌석", "30000원");
+		
 		list.add(vips);
 		list.add(order);
 
 		ObservableList<TableColumn<SeatVO, ?>> columnList = tableView.getColumns();
 		TableColumn<SeatVO, ?> gradeColumn = columnList.get(0);
 		TableColumn<SeatVO, ?> priceColumn = columnList.get(1);
+		
 		gradeColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		gradeColumn.setStyle("-fx-alignment:center");
 		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+		priceColumn.setStyle("-fx-alignment:center");
 		tableView.setItems(list);
-
+		
 		
 	} // end initialize
 
