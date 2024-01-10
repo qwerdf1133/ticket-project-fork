@@ -22,7 +22,8 @@ public class MainRouterThread extends Thread {
 	public Receivable memberController, loginController, 
 					  postController, 
 					  reservationController, 
-					  payController, payDoneController, payCheckController;
+					  payController, payDoneController, payCheckController,
+					  ReserveCheckController;
 
 	// Server에서 발신한 내용을 Receive
 	@Override
@@ -76,10 +77,13 @@ public class MainRouterThread extends Thread {
 						// 결제 관련 완료 요청 처리에 대한 서버의 결과
 						payDoneController.receiveData(readMessage);
 						
-					}else {
+					}else if(datas[1].equals("2")) {
 						// 2|2|...
 						payCheckController.receiveData(readMessage);
-					}
+					}else {
+						// 2|3|...
+						ReserveCheckController.receiveData(readMessage);}
+					
 				}else if(order.equals("3")) {
 					// 3|data...
 					// 포스트 관련 요청 처리에 대한 서버의 결과
