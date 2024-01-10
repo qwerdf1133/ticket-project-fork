@@ -1,5 +1,9 @@
 package member;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,6 +35,10 @@ public class LoginController implements Initializable, Receivable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Main.thread.loginController = this;
 		
+		String userID = rememberMe();
+		if(userID != null) {
+			txtId.setText(userID);
+		}
 		
 		Platform.runLater(() -> {
 			txtId.requestFocus();
@@ -147,10 +155,56 @@ public class LoginController implements Initializable, Receivable {
 				}
 			});
 			
+		} // end if
+	} // end receiveData
+	
+	
+	// 사용자 컴퓨터에 txt파일로 사용자 아이디 저장
+	public void rememberUserId(String userId) {
+		try {
+			File dir = new File("/member");
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+			File file = new File(dir,"rememberMe.txt");
+			System.out.println(file.getAbsolutePath());
+			System.out.println(file.getPath());
+			FileOutputStream fos = new FileOutputStream(file);
+			fos.write(userId.getBytes());
+			fos.flush();
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
+	
+	// 사용자 컴퓨터에 txt파일로 저장된 사용자 ID 읽어오기
+	public String rememberMe() {
+		File dir = new File("/member");
+		File file = new File(dir,"rememberMe.txt");
+		if(!dir.exists() || !file.exists()) {
+			return null;
+		}
+		
+		String userID = null;
+		try {
+			FileInputStream fis = new FileInputStream(file);
+			// 연결된 파일의 읽을 수 있는 byte 개수 만큼 배열 생성
+			byte[] bytes = new byte[fis.available()];
+			fis.read(bytes);
+			if(bytes.length > 0) {
+				userID = new String(bytes);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return userID;
+	}
+	
+	
 }
-
 
 
 
