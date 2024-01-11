@@ -248,6 +248,8 @@ public class PostController implements Initializable, Receivable {
 
 		}
 		list.clear();
+		tableView.setItems(list);
+
 
 		// 테이블 뷰에서 캐스팅 정보 선택
 		tableView.getSelectionModel().selectedItemProperty().addListener((t, o, n) -> {
