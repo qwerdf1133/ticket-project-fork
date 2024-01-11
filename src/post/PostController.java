@@ -246,9 +246,10 @@ public class PostController implements Initializable, Receivable {
 
 			tableView.getColumns().add(tc);
 
+			list.clear();
 		}
-		list.clear();
-		tableView.setItems(list);
+	
+
 
 
 		// 테이블 뷰에서 캐스팅 정보 선택
