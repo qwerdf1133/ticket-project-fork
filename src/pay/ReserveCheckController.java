@@ -34,64 +34,12 @@ public class ReserveCheckController implements Initializable, Receivable {
 	
 	public static ObservableList<TicketVO> list;
 	
-	public static TicketVO ticket;
-	
-	
 
 	Connection conn = null;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Main.thread.ReserveCheckController = this;
-
-		// 테이블 더블 클릭시 예매 확인 창 뜨기 
-		tableView.getSelectionModel().selectedItemProperty().addListener((target,o,n)->{
-			System.out.println(n);
-		});
-		
-		// 더블 클릭시
-		tableView.setOnMouseClicked(e->{
-			int clickCount = e.getClickCount();
-			System.out.println(clickCount);
-			
-			MouseButton btn = e.getButton();
-			System.out.println(btn);
-			
-			// 왼쪽 마우스 두번 클릭
-			if(btn == MouseButton.PRIMARY && clickCount == 2) {
-				ticket = tableView.getSelectionModel().getSelectedItem();
-				System.out.println(ticket);
-				
-				if(ticket == null) return;
-				
-				TicketVO vo = Main.check;
-				
-				String regReserv = "2|1|" + vo.getUserID() + "," + vo.getMusical() + "," + vo.getSeatNum() + ","
-						+ vo.getPay() + "," + vo.getDate() + "," + vo.getTime();
-				
-				System.out.println(regReserv);
-			Main.thread.sendData(regReserv);
-				
-				Stage stage = new Stage(StageStyle.UTILITY); 
-				Parent root = null;
-				FXMLLoader loader = null;
-				
-				try {
-					loader = new FXMLLoader(getClass().getResource("/pay/PayCheck.fxml"));
-					root = loader.load();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-					return;
-				}
-				
-				stage.setScene(new Scene(root));							
-				stage.setTitle("예매확인");
-				stage.show();
-			}
-
-		});
-		
-		
 		// 예매내역 안내 
 		// 예약 목록 요청
 		Main.thread.sendData("2|3|"+Main.loginMember.getUserID());
@@ -113,6 +61,52 @@ public class ReserveCheckController implements Initializable, Receivable {
 				tableView.getColumns().add(tc);
 			}
 		}
+		
+
+		// 테이블 더블 클릭시 예매 확인 창 뜨기 
+		tableView.getSelectionModel().selectedItemProperty().addListener((target,o,n)->{
+			System.out.println(n);
+		});
+		
+		// 더블 클릭시
+		tableView.setOnMouseClicked(e->{
+			int clickCount = e.getClickCount();
+			System.out.println(clickCount);
+			
+			MouseButton btn = e.getButton();
+			System.out.println(btn);
+			
+			// 왼쪽 마우스 두번 클릭
+			if(btn == MouseButton.PRIMARY && clickCount == 2) {
+				Main.reservTicket = tableView.getSelectionModel().getSelectedItem();
+				if(Main.reservTicket == null) return;
+				// 이걸 티켓에서 가져오는게 아니고 db에서 가져오게 해야 할 것 같은데..
+				/*
+				String regReserv = "2|3|" + Main.reservTicket.getUserID() + "," + Main.reservTicket.getMusical() + "," + Main.reservTicket.getSeatNum() + ","
+						+ Main.reservTicket.getPay() + "," + Main.reservTicket.getDate() + "," + Main.reservTicket.getTime();
+				
+				System.out.println(regReserv);
+				Main.thread.sendData(regReserv);
+				*/
+				Stage stage = new Stage(StageStyle.UTILITY); 
+				Parent root = null;
+				FXMLLoader loader = null;
+				
+				try {
+					loader = new FXMLLoader(getClass().getResource("/pay/PayCheck.fxml"));
+					root = loader.load();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+					return;
+				}
+				
+				stage.setScene(new Scene(root));							
+				stage.setTitle("예매확인");
+				stage.show();
+			}
+
+		});
+		
 		
 		// 예매 확인창 꺼짐
 		btnCk.setOnAction((e) -> {
