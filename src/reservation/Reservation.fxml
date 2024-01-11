@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -14,18 +15,19 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservation.ReservationController">
+<BorderPane prefHeight="700.0" prefWidth="910.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservation.ReservationController">
    <right>
       <VBox alignment="CENTER" prefHeight="600.0" prefWidth="272.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="85.0" prefWidth="228.0" text="원하시는 좌석을 선택해주세요" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="228.0" text="원하시는 좌석을 선택해주세요"  textAlignment="CENTER">
                <VBox.margin>
-                  <Insets bottom="50.0" />
+                  <Insets bottom="10.0" />
                </VBox.margin>
                <font>
                   <Font name="Bell MT" size="15.0" />
                </font>
             </Label>
+            <ImageView fx:id="musicalImg" fitHeight="200.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
             <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets bottom="10.0" />
@@ -41,9 +43,9 @@
                <font>
                   <Font size="17.0" />
                </font></TextField>
-            <Button fx:id="btnSc" mnemonicParsing="false" prefHeight="42.0" prefWidth="249.0" style="-fx-background-color: f7c5aa" text="좌석 선택 완료">
+            <Button fx:id="btnSc" mnemonicParsing="false" prefHeight="42.0" prefWidth="249.0" style="-fx-background-color: f7c5aa; -fx-background-radius: 30;" text="좌석 선택 완료">
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets top="20.0" />
                </VBox.margin>
                <font>
                   <Font size="17.0" />
@@ -58,9 +60,9 @@
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="57.0" prefWidth="109.0" text="좌석 선택" textFill="#0deedb">
+            <Label prefHeight="57.0" prefWidth="109.0" text="좌석 선택" style="-fx-Text-Fill : #FFBBFF;">
                <font>
-                  <Font size="24.0" />
+                  <Font size="24.0" name="Agency FB" />
                </font>
             </Label>
 
@@ -86,7 +88,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="btnBack" mnemonicParsing="false" text="뒤로가기">
+            <Button fx:id="btnBack" mnemonicParsing="false" style="-fx-background-color: f7c5aa; -fx-background-radius: 30;" text="뒤로가기">
                <HBox.margin>
                   <Insets left="100.0" />
                </HBox.margin>
