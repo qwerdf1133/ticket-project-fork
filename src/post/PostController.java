@@ -209,10 +209,11 @@ public class PostController implements Initializable, Receivable {
 
 		// 예매일 관련 안내
 		if ((date.getDayOfYear() + 7) < selectDate.getDayOfYear()) {
+			list.clear();
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setHeaderText("해당일자는 예약이 불가합니다.");
 			alert.setContentText("예매는 공연일 일주일 전 오후 2시부터 가능합니다.");
-			alert.showAndWait();
+			alert.showAndWait();			
 		} else {
 			main.Main.thread.sendData("3|0|" + selectDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		}
@@ -236,21 +237,18 @@ public class PostController implements Initializable, Receivable {
 		Class<CastVO> clazz = CastVO.class;
 		Field[] fields = clazz.getDeclaredFields();
 
-		
 		for (Field f : fields) {
 			String time = f.getName();
 			TableColumn<CastVO, String> tc = new TableColumn<>(time);
 			tc.setCellValueFactory(new PropertyValueFactory<>(time));
 			tc.setStyle("-fx-alignment:center; -fx-text-fill:black;");
 			// tc.setPrefWidth(double value);
-			
+
 			tableView.getColumns().add(tc);
 
 		}
 		list.clear();
-		
-		
-		
+
 		// 테이블 뷰에서 캐스팅 정보 선택
 		tableView.getSelectionModel().selectedItemProperty().addListener((t, o, n) -> {
 			Main.castVO = n;
@@ -337,18 +335,11 @@ public class PostController implements Initializable, Receivable {
 					String[] castData = data.split("\\!");
 					list.add(new CastVO(Integer.parseInt(castData[0]), castData[1], castData[2], castData[3],
 							castData[4]));
-					
 				}
-				
-			} 
-			
+			}
 			// else {// 해당 되는 날짜에 뮤지컬 정보 없음.} // tableView에 목록 미출력
 		} else if (secondOrder.equals("1")) {
 			// 3|1 추가 기능...
-			list.clear();
-			}
-		
 		}
-	
-
+	}
 }
