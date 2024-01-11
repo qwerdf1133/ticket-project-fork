@@ -63,6 +63,10 @@ public class PostController implements Initializable, Receivable {
 	// 현재의 월
 	private LocalDate now;
 
+	// 선택된 버튼
+	public Button selectedButton;
+	public String btnStyle;
+
 	// 이번달 달력을 표시
 	@FXML
 	void TodayClick(ActionEvent e) {
@@ -193,6 +197,16 @@ public class PostController implements Initializable, Receivable {
 		System.out.println(date.getDayOfMonth()); // 오늘 일자
 		System.out.println(selectDate.getDayOfMonth()); // 선택한 일자
 
+		// 클릭한 버튼 색상 변경
+		if (selectedButton != null && btnStyle != null) {
+			selectedButton.setStyle(btnStyle);
+		}
+		selectedButton = btn;
+		btnStyle = btn.getStyle();
+		btn.setStyle(
+				"-fx-background-color:orange; -fx-background-radius:45; -fx-text-fill:white; -fx-font-weight:bolder; ");
+		btn.setDefaultButton(false);
+
 		// 예매일 관련 안내
 		if ((date.getDayOfYear() + 7) < selectDate.getDayOfYear()) {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -222,18 +236,22 @@ public class PostController implements Initializable, Receivable {
 		Class<CastVO> clazz = CastVO.class;
 		Field[] fields = clazz.getDeclaredFields();
 
+		
 		for (Field f : fields) {
 			String time = f.getName();
 			TableColumn<CastVO, String> tc = new TableColumn<>(time);
 			tc.setCellValueFactory(new PropertyValueFactory<>(time));
 			tc.setStyle("-fx-alignment:center; -fx-text-fill:black;");
 			// tc.setPrefWidth(double value);
-
+			
 			tableView.getColumns().add(tc);
 
 		}
-		tableView.setItems(list);
-
+		list.clear();
+		
+		
+		
+		// 테이블 뷰에서 캐스팅 정보 선택
 		tableView.getSelectionModel().selectedItemProperty().addListener((t, o, n) -> {
 			Main.castVO = n;
 			System.out.println(Main.castVO + "--------");
@@ -287,8 +305,10 @@ public class PostController implements Initializable, Receivable {
 	public void receiveData(String message) {
 		// TODO receive된 데이터로 결과 처리
 		System.out.println("PostController receive Data: " + message);
-		list.clear();
+
 		tableView.refresh();
+		list.clear();
+		tableView.setItems(list);
 
 		String[] row = message.split("\\|");
 		String firstOrder = row[0]; // == 3
@@ -317,11 +337,18 @@ public class PostController implements Initializable, Receivable {
 					String[] castData = data.split("\\!");
 					list.add(new CastVO(Integer.parseInt(castData[0]), castData[1], castData[2], castData[3],
 							castData[4]));
+					
 				}
-			} // else {// 해당 되는 날짜에 뮤지컬 정보 없음.} // tableView에 목록 미출력
+				
+			} 
+			
+			// else {// 해당 되는 날짜에 뮤지컬 정보 없음.} // tableView에 목록 미출력
 		} else if (secondOrder.equals("1")) {
-			// 추가 기능...
+			// 3|1 추가 기능...
+			list.clear();
+			}
+		
 		}
-	}
+	
 
 }
