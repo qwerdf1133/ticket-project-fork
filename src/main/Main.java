@@ -1,5 +1,6 @@
 package main;
 
+import java.net.InetAddress;
 import java.net.Socket;
 
 import javafx.application.Application;
@@ -36,6 +37,8 @@ public class Main extends Application {
 	// 예매할 좌석 정보
 	public static TicketVO reservTicket;
 	
+	InetAddress ip;
+	
 	/**
 	 * 메인에서 사욜할 알림창
 	 */
@@ -47,8 +50,8 @@ public class Main extends Application {
 		// 서버 소켓 연결
 		Platform.runLater(()->{
 			try {
-			
-				socket = new Socket("localhost", 5001);
+				//this.ip = InetAddress.getByName(ip);
+				socket = new Socket("10.100.205.16", 5001);
 				System.out.println(socket);
 				alert.close();
 				
